@@ -23,6 +23,7 @@ Finally, Ventriglio et al. (2022) gave an outstanding review of the link between
 The general public might be interested in having a tool that can show how changes in rent costs impact the level of homelessness in the USA. 
 
 Despite that, several government agencies should be another potential audience because they can develop creative strategies to mitigate the problem. Solutions can cover programs such as temporary housing, career training, financial management, and child care services.
+
 ## Data
 
 The data expected to be used in this project will be obtained from two official sources.
@@ -48,14 +49,19 @@ The information will be analyzed by state from 2010 to 2019
 
 Second, The estimates of homelessness by state from 2007 to 2021 will be downloaded from the [HUD Exchange website](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/) 
 
-
-
-## Methods
+## Visualization
 
 ## Interface draft
 
 ## Concerns
 
+The main concern we might have is finding a proper way to focus on the effect of the rent cost on the level of homelessness nationwide through the visualization tools given in the training course.
+
+Homelessness is a global problem affected by several correlated factors that might be challenging to isolate only one aspect.
+
+Another concern is that it might be hard to manage the information in a broad period or consider all US states at once.
+
+Finally, how to overcome the team time management problems that can make it challenging to apply all that we have learned in our project.
 
 ## References
 
