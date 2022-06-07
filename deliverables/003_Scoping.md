@@ -25,6 +25,31 @@ The general public might be interested in having a tool that can show how change
 Despite that, several government agencies should be another potential audience because they can develop creative strategies to mitigate the problem. Solutions can cover programs such as temporary housing, career training, financial management, and child care services.
 ## Data
 
+The data expected to be used in this project will be obtained from two official sources.
+
+First, the estimated US population will be grabbed from the [US Census website](https://data.census.gov/cedsci/table?q=United%20States), filtered by the following topics:
+
+1. Geography > Nation > United States
+1. Population and People > Population and People
+
+Besides the broad information that can be obtained, this project will be focused on the following features:
+
+- Name of the state
+- Year
+- Total population
+- Population in households
+- Education attainment
+- Employment status
+- Income
+- Housing tenure
+- Housing cost
+
+The information will be analyzed by state from 2010 to 2019 
+
+Second, The estimates of homelessness by state from 2007 to 2021 will be downloaded from the [HUD Exchange website](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/) 
+
+
+
 ## Methods
 
 ## Interface draft

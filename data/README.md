@@ -18,9 +18,9 @@ The raw data was downloaded from [data.census.gov](https://data.census.gov/cedsc
 1. Geography > Nation > United States
 1. Population and People > Population and People
 
-As result of teh previous filter applied, several tables were presented. The main table was selected in order to get a broad view of the features available.
+As a result of the previous filter applied, several tables were presented. Finally, the main table was selected to get a broad view of the features available.
 
-The result was downloaded in a csv format, and a file was created by each year. The set of files was saved in the folder **raw_data**
+The result was downloaded in a CSV format, and each year created, a file. The set of files was saved in the folder **raw_data**
 
 ## Homelessness Dataset
 
