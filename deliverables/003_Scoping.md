@@ -20,6 +20,9 @@ Additionally, Bridges (2022) has reported a strong correlation between homelessn
 Finally, Ventriglio et al. (2022) gave an outstanding review of the link between homelessness and mental health illnesses, which is obvious. Social and economic issues such as poverty, migration, unemployment, access to healthcare, and urbanization significantly impact both. As a result, understanding the cultural context is necessary for providing the best care in the community.
 ## Potential Audience
 
+The general public might be interested in having a tool that can show how changes in rent costs impact the level of homelessness in the USA. 
+
+Despite that, several government agencies should be another potential audience because they can develop creative strategies to mitigate the problem. Solutions can cover programs such as temporary housing, career training, financial management, and child care services.
 ## Data
 
 ## Methods
@@ -27,3 +30,9 @@ Finally, Ventriglio et al. (2022) gave an outstanding review of the link between
 ## Interface draft
 
 ## Concerns
+
+
+## References
+
+1. Homelessness and Mental Health. (2022). United Kingdom: Oxford University Press.
+1. Whaley RB, Abbott J. How Safe Is Life on the Road? Criminal Victimization Among a Sample of U.S. Nomads and the #VanLife Community. Crime & Delinquency. April 2022. doi:10.1177/00111287221087957
