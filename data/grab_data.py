@@ -55,7 +55,7 @@ features = {
     "Educational attainment": ["S0201_090E", "S0201_091E", "S0201_092E","S0201_093E", "S0201_094E", "S0201_095E"],
     "Employment status": ["S0201_154E", "S0201_155E","S0201_157E", "S0201_158E",  "S0201_161E"],
     "Income": ["S0201_213E", "S0201_214E", "S0201_226E", "S0201_227E"],
-    "Housing ternure": ["S0201_265E", "S0201_266E", "S0201_267E"],
+    "Housing tenure": ["S0201_265E", "S0201_266E", "S0201_267E"],
     "Housing cost": ["S0201_298E", "S0201_299E", "S0201_304E"]    
 }
 
