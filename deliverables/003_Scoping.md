@@ -9,8 +9,15 @@ Many Americans today have chosen to rent housing vs. buying. Some of their choic
 Typically, the highest rent increase was about 3% in the past. However, America is seeing at least an 11% increase from a year earlier, with some larger cities showing 30-40% increases. Unfortunately, the average renter's income is not increasing at these same rates, causing renters to become homeless. Even though many homeless people might be employed, they just cannot afford housing.
 
 Our goal is to create a data-driven tool that will demonstrate whether there is a link between rising rent and homelessness in the United States.
+
 ## Business Impact
 
+Homelessness has a massive impact on the health and well-being of families nationwide. Among numerous health issues, homeless people are exposed to more outside elements -- hot, cold, rain, snow, hurricanes,
+tornados, which increase the likelihood of getting sickness, injury, or disease can spread. 
+
+Additionally, Bridges (2022) has reported a strong correlation between homelessness and crime, which does not necessarily mean that homeless people cause offense. But due to harsh living conditions and a lack of defending themselves, they are vulnerable to hate crime.
+
+Finally, Ventriglio et al. (2022) gave an outstanding review of the link between homelessness and mental health illnesses, which is obvious. Social and economic issues such as poverty, migration, unemployment, access to healthcare, and urbanization significantly impact both. As a result, understanding the cultural context is necessary for providing the best care in the community.
 ## Potential Audience
 
 ## Data
