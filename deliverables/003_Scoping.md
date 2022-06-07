@@ -64,6 +64,8 @@ Different plots show how specific features changed from 2010 to 2019. Among the 
 
 ## Interface draft
 
+<img src="images/draft.png" alt="draft" width="200"/>
+
 ## Concerns
 
 The main concern we might have is finding a proper way to focus on the effect of the rent cost on the level of homelessness nationwide through the visualization tools given in the training course.
