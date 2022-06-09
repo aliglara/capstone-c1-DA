@@ -11,12 +11,12 @@ Topic: Rental Rise Cost
 ### US Population database
 
 |||
-|-|-
-| File name | project_data.csv (US population indexes) 2010 - 2020
-| Name | US Population and People
-| Size | 3.6 MB
-| Source | [https://data.census.gov](https://data.census.gov)
-| Direct link | [https://data.census.gov/cedsci/table?q=United%20States](https://data.census.gov/cedsci/table?q=United%20States)
+|-|-|
+| File name | project_data.csv (US population indexes) 2010 - 2020|
+| Name | US Population and People|
+| Size | 3.6 MB|
+| Source | [https://data.census.gov](https://data.census.gov)|
+| Direct link | [https://data.census.gov/cedsci/table?q=United%20States](https://data.census.gov/cedsci/table?q=United%20States)|
 
 
 ### US Homelessness database
