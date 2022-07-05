@@ -1,5 +1,6 @@
 # Mac files
 data/*
+raw_data/*
 material/
 *.DS_Store*
 *.ipynb_checkpoints*
