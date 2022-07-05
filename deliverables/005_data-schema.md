@@ -9,6 +9,8 @@ Group Members: Jenelle Allen, [Nancy Beard](https://www.linkedin.com/in/nancy-be
 
 
 ## Homelessness Database
+
+|||
 |-|-|
 | File name | 2007-2021-PIT-Counts-by-State (2007 - 2020) |
 | Name | PIT and HIC Data Since 2007 |
@@ -29,6 +31,7 @@ Group Members: Jenelle Allen, [Nancy Beard](https://www.linkedin.com/in/nancy-be
 
 ## Population Database
 
+|||
 |-|-|
 | File name | project_data.csv (US population indexes) 2010 - 2020|
 | Name | US Population and People|
