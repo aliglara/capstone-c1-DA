@@ -34,8 +34,7 @@ def grab_data(y, api_key):
         iterator: iterator object which contains the info from each y
     """
     for year in y:
-        url_address = 'https://api.census.gov/data/'+ year +'/acs/acs1?get=NAME,'+ feature_string[1:] +'&for=state:*&key={0}'
-        url = url_address.format(api_key['API'][0]['key'])
+        url = 'https://api.census.gov/data/{}/acs/acs1?get=NAME{}&for=state:*&key={}'.format(year, feature_string, api_key['API'][0]['key'])
         json_text = requests.request("GET", url).json()
         for row in range(1, len(json_text)):
             json_text[row].insert(0, year)
@@ -126,7 +125,7 @@ for x in gen_data:
 
 census_df = pd.DataFrame(all_data, columns=feature_names)
 
-#%% Changing type fof varaibles
+#%% Changing type fof variables from object to num, except the state name
 census_df = census_df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
 census_df['year'] = census_df["Year"].apply(lambda x: pd.to_datetime(x, format='%Y'))
 
