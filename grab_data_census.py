@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import requests
 import numpy as np
+from datetime import datetime as dt
 
 #%% User-function
 def read_dict(dictionary):
@@ -124,6 +125,17 @@ for x in gen_data:
     all_data.extend(x)
 
 census_df = pd.DataFrame(all_data, columns=feature_names)
+
+#%% Changing type fof varaibles
+census_df = census_df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
+census_df['year'] = census_df["Year"].apply(lambda x: pd.to_datetime(x, format='%Y'))
+
+census_df = census_df.drop('Year', axis=1)
+
+# Reorder dataframe
+reordered_name = ['year']
+reordered_name.extend(census_df.columns[:-2])
+census_df = census_df[reordered_name]
 #%%
-print(census_df.head())
+print(census_df.describe())
 #%%
