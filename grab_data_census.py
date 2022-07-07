@@ -50,45 +50,37 @@ api_keys = json.load(f)
 features = {
     "Total population": "B01001_001E",
     "Population in households": "B11001_001E",
-    "Educational attainment": {
+    "Educational attainment for the population 25 years and over": {
         "Total" : "B15003_001E",
-        "No schooling" : "B15003_002E",
-        "Master" : "B15003_023E",
-        "Bachelor" : "B15003_022E"
+        "No schooling completed" : "B15003_002E",
+        "Bachelor's degree": "B15003_022E"
+        "Master's degree" : "B15003_023E",
+        "Doctorate degree" : "B15003_023E"
     },
     "Income" : {
         "Total Below poverty level" : "B17001_002E",
         "Total Above poverty level" : "B17001_031E",
-        "Total by household": "B19001_001E",
-        "Median by household size": "B19019_001E"
+        "Total household": "B19001_001E",
+        "Median household": "B19019_001E"
     },
     "Earnings" :{
         "Total": "B20001_001E",
         "Median": "B20002_001E",
-        "Median less than high school": "B20004_002E",
         "Median Bachelor": "B20004_005E",
         "Median Master or Above": "B20004_006E"
     },
     "Employment status": {
         "Total": "B23025_001E",
-        "Total by Educational Attainment": "B23006_001E",
+        "Total by Educational Attainment 25 years or above": "B23006_001E",
         "Total Bachelor or higher in labor force": "B23006_024E",
-        "Total Bachelor or higher not labor force": "B23006_029E",
-        "Total in labor force": "B23025_002E",
-        "Total in labor force Employed": "B23025_004E",
-        "Total in labor force Unemployed": "B23025_005E"
+        "Total Bachelor or higher not labor force": "B23006_029E"
     },
     "Housing": {
-        "Total units": "B25001_001E",
-        "Total Occupied": "B25002_002E",
-        "Total Vacant": "B25002_003E",
-        "Total Owner occupied": "B25003_002E",
+        "Total housing units": "B25001_001E",
         "Total Renter occupied": "B25003_003E",
-        "Total for rent": "B25004_002E",
-        "Total for sale": "B25004_004E",
-        "Total for seasonal": "B25004_006E",
-        "Total monthly housing costs": "B25104_001E",
-        "Median monthly housing costs": "B25105_001E",
+        "Total by educational attainment of householder": "B25013_001E",
+        "Total renter-occupied housing units by educational attainment" : "B25013_007E",
+        "Renter occupied with bachelor's degree or higher" : "B25013_011E",
         "Median gross rent": "B25064_001E"
     }
 }
@@ -113,7 +105,9 @@ feature_names.append('state')
 
 # Years selected
 # Year 2020 is not available on the API service
-years = ['2015', '2016', '2017', '2018', '2019']
+first_year = 2010
+last_year = 2019
+years = np.arrange(first_year, last_year + 1)
 
 # Grab info from census.gov for each year
 gen_data = grab_data(years, api_keys)
