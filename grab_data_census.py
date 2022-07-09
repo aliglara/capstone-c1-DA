@@ -23,7 +23,18 @@ def read_dict(dictionary):
         else:
             yield values
 
-def grab_data(y, api_key):
+def prepare_features(variable_gen):
+    feature_for_columns = ['Year', 'Name']
+    string_for_api = ''
+    for variable in variable_gen:
+        string_for_api = string_for_api + ',' + variable
+        feature_for_columns.append(variable)
+    
+    feature_for_columns.append('state')
+    
+    return [feature_for_columns, string_for_api]
+
+def grab_data(y, features_str, api_key):
     """Pull data from census.gov
 
     Args:
@@ -33,8 +44,9 @@ def grab_data(y, api_key):
     Yields:
         iterator: iterator object which contains the info from each y
     """
+
     for year in y:
-        url = 'https://api.census.gov/data/{}/acs/acs1?get=NAME{}&for=state:*&key={}'.format(year, feature_string, api_key['API'][0]['key'])
+        url = 'https://api.census.gov/data/{}/acs/acs1?get=NAME,{}&for=state:*&key={}'.format(year, features_str, api_key['API'][0]['key'])
         json_text = requests.request("GET", url).json()
         for row in range(1, len(json_text)):
             json_text[row].insert(0, year)
@@ -48,76 +60,105 @@ api_keys = json.load(f)
 #%%
 # Dictionary of the variables selected for the project
 features = {
-    "Total population": "B01001_001E",
+    "Population": "B01001_001E",
     "Population in households": "B11001_001E",
-    "Educational attainment for the population 25 years and over": {
-        "Total" : "B15003_001E",
-        "No schooling completed" : "B15003_002E",
-        "Bachelor's degree": "B15003_022E"
-        "Master's degree" : "B15003_023E",
-        "Doctorate degree" : "B15003_023E"
-    },
-    "Income" : {
-        "Total Below poverty level" : "B17001_002E",
-        "Total Above poverty level" : "B17001_031E",
-        "Total household": "B19001_001E",
-        "Median household": "B19019_001E"
-    },
-    "Earnings" :{
-        "Total": "B20001_001E",
-        "Median": "B20002_001E",
-        "Median Bachelor": "B20004_005E",
-        "Median Master or Above": "B20004_006E"
-    },
-    "Employment status": {
-        "Total": "B23025_001E",
-        "Total by Educational Attainment 25 years or above": "B23006_001E",
-        "Total Bachelor or higher in labor force": "B23006_024E",
-        "Total Bachelor or higher not labor force": "B23006_029E"
-    },
-    "Housing": {
-        "Total housing units": "B25001_001E",
-        "Total Renter occupied": "B25003_003E",
-        "Total by educational attainment of householder": "B25013_001E",
-        "Total renter-occupied housing units by educational attainment" : "B25013_007E",
-        "Renter occupied with bachelor's degree or higher" : "B25013_011E",
-        "Median gross rent": "B25064_001E"
+    "Pop. below poverty level" : "B17001_002E",
+    "Pop. at or Above poverty level" : "B17001_031E",
+    "Pop. in Labor Force" : "B23025_002E",
+    "Pop. not in Labor Force" : "B23025_007E",
+    "Bachelor or higher Pop. in labor force": "B23006_024E",
+    "Bachelor or higher Pop. not labor force": "B23006_029E",
+    "Total Population 25 years and over - Educ. attainment" : "B15003_001E",
+    "Population 25 years and over - No schooling completed" : "B15003_002E",
+    "Population 25 years and over - Bachelor's degree": "B15003_022E",
+    "Population 25 years and over - Master's degree" : "B15003_023E",
+    "Population 25 years and over - Doctorate degree" : "B15003_023E",
+    "Median household Earnings($)": "B19013_001E",
+    "Median Earnings - Educational attainment": "B20004_001E",
+    "Median Earnings - Bachelor": "B20004_005E",
+    "Median Earnings - Master or Above": "B20004_006E",
+    "Total housing units": "B25001_001E",
+    "Total Occupied housing units": "B25002_002E",
+    "Total Renter occupied - Tenure": "B25003_003E",
+    "Total Renter occupied - by income": "B25118_014E",
+    "Renter occupied - income less than $5000": "B25118_015E",
+    "Renter occupied - income $5000 to $9999": "B25118_016E",
+    "Renter occupied - income $10000 to $14999": "B25118_017E",
+    "Renter occupied - income $15000 to $19999": "B25118_018E",
+    "Renter occupied - income $20000 to $24999": "B25118_019E",
+    "Renter occupied - income $25000 to $34999": "B25118_020E",
+    "Renter occupied - income $35000 to $49999": "B25118_021E",
+    "Renter occupied - income $50000 to $74999": "B25118_022E",
+    "Renter occupied - income $75000 to $99999": "B25118_023E",
+    "Renter occupied - income $100000 to $149999": "B25118_024E",
+    "Renter occupied - income $150000 or more": "B25118_025E",
+    "Total housing units - Educational attainment": "B25013_001E",
+    "Total Renter-occupied units- Educational attainment" : "B25013_007E",
+    "Renter-occupied units - Less than high school graduate": "B25013_008E",
+    "Renter-occupied units - High school graduate": "B25013_009E",
+    "Renter-occupied units - Some college degree": "B25013_010E",
+    "Renter-occupied units - Bachelor's degree or higher": "B25013_011E"
     }
-}
+
+Gross_Rent_features = {
+    "Less than $100": "B25063_003E",
+    "$100 to $149": "B25063_004E",
+    "$150 to $199": "B25063_005E",
+    "$200 to $249": "B25063_006E",
+    "$250 to $299": "B25063_007E",
+    "$300 to $349": "B25063_008E",
+    "$350 to $399": "B25063_009E",
+    "$400 to $449": "B25063_010E",
+    "$450 to $499": "B25063_011E",
+    "$500 to $549": "B25063_012E",
+    "$550 to $599": "B25063_013E",
+    "$600 to $649": "B25063_014E",
+    "$650 to $699": "B25063_015E",
+    "$700 to $749": "B25063_016E",
+    "$750 to $799": "B25063_017E",
+    "$800 to $899": "B25063_018E",
+    "$900 to $999": "B25063_019E",
+    "$1000 to $1249": "B25063_020E",
+    "$1250 to $1499": "B25063_021E",
+    "$1500 to $1999": "B25063_022E",
+    "$2000 to $2499": "B25063_023E",
+    "$2500 to $2999": "B25063_024E",
+    "$3000 to $3499": "B25063_025E",
+    "$3500 or more": "B25063_026E",
+    "Median gross rent": "B25064_001E"
+    }
 
 #%%
 # Read variables from features dict
-gen_features = read_dict(features)
+#gen_features = read_dict(features)
 
 # Create variables for scraping the webpage and identify the final
 # dataframe
 
-feature_names = ['Year', 'Name']
-
-feature_string = ''
-for feature in gen_features:
-    feature_string = feature_string + ',' + feature
-    feature_names.append(feature)
-
-feature_names.append('state')
+#feature_names, feature_string = prepare_features(gen_features)
 
 #%%
 
 # Years selected
 # Year 2020 is not available on the API service
-first_year = 2010
+first_year = 2015
 last_year = 2019
-years = np.arrange(first_year, last_year + 1)
+years = np.arange(first_year, last_year + 1)
 
 # Grab info from census.gov for each year
-gen_data = grab_data(years, api_keys)
+feature_string = ",".join(features.values())
+gen_data = grab_data(years, feature_string, api_keys)
 
+#%%
 # Put all data together, but it's possible to grab a specific year
 all_data = []
 for x in gen_data:
     all_data.extend(x)
 
-census_df = pd.DataFrame(all_data, columns=feature_names)
+# %%
+column_names = ['Year', 'Name']
+column_names = column_names + list(features.keys()) + ['state']
+census_df = pd.DataFrame(all_data, columns=column_names)
 
 #%% Changing type fof variables from object to num, except the state name
 census_df = census_df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
