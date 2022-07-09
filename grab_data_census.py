@@ -7,33 +7,6 @@ import numpy as np
 from datetime import datetime as dt
 
 #%% User-function
-def read_dict(dictionary):
-    """
-    Read all the values from a nested dictionary
-    Args:
-        dictionary (dict: Dictionary with all variables defined as census.gov
-
-    Yields:
-        _type_: yield object with all variables
-    """
-    for _, values in dictionary.items():
-        if type(values) is dict:
-            # in case is a children dict
-            yield from read_dict(values)
-        else:
-            yield values
-
-def prepare_features(variable_gen):
-    feature_for_columns = ['Year', 'Name']
-    string_for_api = ''
-    for variable in variable_gen:
-        string_for_api = string_for_api + ',' + variable
-        feature_for_columns.append(variable)
-    
-    feature_for_columns.append('state')
-    
-    return [feature_for_columns, string_for_api]
-
 def grab_data(y, features_str, api_key):
     """Pull data from census.gov
 
@@ -129,15 +102,6 @@ Gross_Rent_features = {
     }
 
 #%%
-# Read variables from features dict
-#gen_features = read_dict(features)
-
-# Create variables for scraping the webpage and identify the final
-# dataframe
-
-#feature_names, feature_string = prepare_features(gen_features)
-
-#%%
 
 # Years selected
 # Year 2020 is not available on the API service
@@ -162,14 +126,7 @@ census_df = pd.DataFrame(all_data, columns=column_names)
 
 #%% Changing type fof variables from object to num, except the state name
 census_df = census_df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
-census_df['year'] = census_df["Year"].apply(lambda x: pd.to_datetime(x, format='%Y'))
+#census_df['year'] = census_df["Year"].apply(lambda x: pd.to_datetime(x, format='%Y'))
 
-census_df = census_df.drop('Year', axis=1)
-
-# Reorder dataframe
-reordered_name = ['year']
-reordered_name.extend(census_df.columns[:-2])
-census_df = census_df[reordered_name]
 #%%
 print(census_df.describe())
-#%%
