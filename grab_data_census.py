@@ -4,7 +4,6 @@ import pandas as pd
 import json
 import requests
 import numpy as np
-from datetime import datetime as dt
 
 #%% User-function
 def grab_data(y, features_str, api_key):
@@ -25,6 +24,43 @@ def grab_data(y, features_str, api_key):
             json_text[row].insert(0, year)
         yield json_text[1:]
 
+def create_dataframe_data(var_dict, api_census, first_year, last_year=None):
+    """
+    Extraction the data from Census.gov per year, then consolidate them and create a pandas dataframe
+
+    Args:
+        var_dict: {dict} Dictionary of features
+        api_censis: {str} API key for gather info from census.gov
+        first_year: {int} First year for query
+        last_year: {int} Last year for query, by default is equal to first year
+
+    Output:
+        df: {pandas dataframe} Dataframe that contains info from Census.gov
+    """
+
+    if last_year == None:
+        years = first_year
+    else:
+        years = np.arange(first_year, last_year + 1)
+
+    column_names = ['Year', 'Name']
+    column_names = column_names + list(var_dict.keys()) + ['state']
+
+    # Grab info from census.gov for each year
+    feature_string = ",".join(var_dict.values())
+    gen_data = grab_data(years, feature_string, api_census)
+
+    # Put all data together, but it's possible to grab a specific year
+    all_data = []
+    for x in gen_data:
+        all_data.extend(x)
+
+    df = pd.DataFrame(all_data, columns=column_names)
+    df = df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
+
+    return df
+
+
 #%%
 # Reading api key
 f = open('../../apis/api_keys.json', "r")
@@ -32,7 +68,7 @@ api_keys = json.load(f)
 
 #%%
 # Dictionary of the variables selected for the project
-features = {
+population_features = {
     "Population": "B01001_001E",
     "Population in households": "B11001_001E",
     "Pop. below poverty level" : "B17001_002E",
@@ -54,26 +90,16 @@ features = {
     "Total Occupied housing units": "B25002_002E",
     "Total Renter occupied - Tenure": "B25003_003E",
     "Total Renter occupied - by income": "B25118_014E",
-    "Renter occupied - income less than $5000": "B25118_015E",
-    "Renter occupied - income $5000 to $9999": "B25118_016E",
-    "Renter occupied - income $10000 to $14999": "B25118_017E",
-    "Renter occupied - income $15000 to $19999": "B25118_018E",
-    "Renter occupied - income $20000 to $24999": "B25118_019E",
-    "Renter occupied - income $25000 to $34999": "B25118_020E",
-    "Renter occupied - income $35000 to $49999": "B25118_021E",
-    "Renter occupied - income $50000 to $74999": "B25118_022E",
-    "Renter occupied - income $75000 to $99999": "B25118_023E",
-    "Renter occupied - income $100000 to $149999": "B25118_024E",
-    "Renter occupied - income $150000 or more": "B25118_025E",
     "Total housing units - Educational attainment": "B25013_001E",
     "Total Renter-occupied units- Educational attainment" : "B25013_007E",
     "Renter-occupied units - Less than high school graduate": "B25013_008E",
     "Renter-occupied units - High school graduate": "B25013_009E",
     "Renter-occupied units - Some college degree": "B25013_010E",
-    "Renter-occupied units - Bachelor's degree or higher": "B25013_011E"
+    "Renter-occupied units - Bachelor's degree or higher": "B25013_011E",
+    "Median gross rent": "B25064_001E"
     }
 
-Gross_Rent_features = {
+gross_rent_features = {
     "Less than $100": "B25063_003E",
     "$100 to $149": "B25063_004E",
     "$150 to $199": "B25063_005E",
@@ -101,32 +127,53 @@ Gross_Rent_features = {
     "Median gross rent": "B25064_001E"
     }
 
+rent_occupied_by_income_features = {
+    "Total Renter occupied - by income": "B25118_014E",
+    "Renter occupied - income less than $5000": "B25118_015E",
+    "Renter occupied - income $5000 to $9999": "B25118_016E",
+    "Renter occupied - income $10000 to $14999": "B25118_017E",
+    "Renter occupied - income $15000 to $19999": "B25118_018E",
+    "Renter occupied - income $20000 to $24999": "B25118_019E",
+    "Renter occupied - income $25000 to $34999": "B25118_020E",
+    "Renter occupied - income $35000 to $49999": "B25118_021E",
+    "Renter occupied - income $50000 to $74999": "B25118_022E",
+    "Renter occupied - income $75000 to $99999": "B25118_023E",
+    "Renter occupied - income $100000 to $149999": "B25118_024E",
+    "Renter occupied - income $150000 or more": "B25118_025E"
+    }
 #%%
 
 # Years selected
 # Year 2020 is not available on the API service
 first_year = 2015
 last_year = 2019
-years = np.arange(first_year, last_year + 1)
-
-# Grab info from census.gov for each year
-feature_string = ",".join(features.values())
-gen_data = grab_data(years, feature_string, api_keys)
-
-#%%
-# Put all data together, but it's possible to grab a specific year
-all_data = []
-for x in gen_data:
-    all_data.extend(x)
-
-# %%
-column_names = ['Year', 'Name']
-column_names = column_names + list(features.keys()) + ['state']
-census_df = pd.DataFrame(all_data, columns=column_names)
 
 #%% Changing type fof variables from object to num, except the state name
-census_df = census_df.apply(lambda x: pd.to_numeric(x) if x.name != "Name" else x)
-#census_df['year'] = census_df["Year"].apply(lambda x: pd.to_datetime(x, format='%Y'))
+population_df = create_dataframe_data(population_features , \
+                                  api_keys, first_year, last_year)
+gross_rent_dist_df = create_dataframe_data(gross_rent_features, \
+                                      api_keys, first_year, last_year)
 
-#%%
-print(census_df.describe())
+rent_income_dist_df = create_dataframe_data(rent_occupied_by_income_features, \
+                                      api_keys, first_year, last_year)
+
+# Dump df to csv if it's needed
+# population_df.to_csv('data/population_demo.csv', index=False)
+
+
+# Now info from HIC
+our_data = dict()
+
+raw_data = pd.read_excel('data/2007-2021-PIT-Counts-by-State.xlsx', sheet_name=None)
+var_name = 'Overall Homeless, '
+
+years = np.arange(2015, 2021)
+for y in years:
+    y = str(y)
+    our_data[y] = raw_data[y][var_name + y].values
+
+our_data['State'] = raw_data[y]['State']
+
+our_data_df = pd.DataFrame(our_data)
+# our_data_df.to_csv('data/overall_homelessness.csv', index=False)
+
