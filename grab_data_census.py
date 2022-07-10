@@ -60,7 +60,6 @@ def create_dataframe_data(var_dict, api_census, first_year, last_year=None):
 
     return df
 
-
 #%%
 # Reading api key
 f = open('../../apis/api_keys.json', "r")
@@ -68,6 +67,7 @@ api_keys = json.load(f)
 
 #%%
 # Dictionary of the variables selected for the project
+
 population_features = {
     "Population": "B01001_001E",
     "Population in households": "B11001_001E",
