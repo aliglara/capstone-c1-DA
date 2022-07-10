@@ -4,7 +4,6 @@ material/
 *.DS_Store*
 *.ipynb_checkpoints*
 .idea
-*.csv
 
 
 # Byte-compiled / optimized / DLL files
