@@ -15,19 +15,18 @@ Group Members: Jenelle Allen, [Nancy Beard](https://www.linkedin.com/in/nancy-be
 | File name | 2007-2021-PIT-Counts-by-State (2007 - 2020) |
 | Name | PIT and HIC Data Since 2007 |
 | Size | 1.1 MB |
-| Source | [https://data.census.gov](https://data.census.gov) |
+| Source | [https://www.hudexchange.info](https://www.hudexchange.info) |
 | Direct link | [https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/) |
 
 ### Data Schema
 
-*\~165 rows & 8 columns.* Size 18.7 KB
+*\~50 rows & 7 columns.* Size 18.7 KB
 
 
   Field | Type    |    Description |
   ------|---------|--------------------------------------|
-  us_states       |    STRING      | Name of US states |
-  states_abbreviation   |STRING      |States abbreviation |
-  years                 |INTEGER     |
+  States          |    STRING      | States abbreviation |
+  years           | INTEGER        |
 
 ## Population Database
 
