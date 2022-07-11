@@ -62,7 +62,7 @@ def create_dataframe_data(var_dict, api_census, first_year, last_year=None):
 
 #%%
 # Reading api key
-f = open('../../apis/api_keys.json', "r")
+f = open('../../../apis/api_keys.json', "r")
 api_keys = json.load(f)
 
 #%%
@@ -164,10 +164,10 @@ rent_income_dist_df = create_dataframe_data(rent_occupied_by_income_features, \
 # Now info from HIC
 our_data = dict()
 
-raw_data = pd.read_excel('data/2007-2021-PIT-Counts-by-State.xlsx', sheet_name=None)
+raw_data = pd.read_excel('../data/2007-2021-PIT-Counts-by-State.xlsx', sheet_name=None)
 var_name = 'Overall Homeless, '
 
-years = np.arange(2015, 2021)
+years = np.arange(2010, 2021)
 for y in years:
     y = str(y)
     our_data[y] = raw_data[y][var_name + y].values
@@ -175,5 +175,5 @@ for y in years:
 our_data['State'] = raw_data[y]['State']
 
 our_data_df = pd.DataFrame(our_data)
-# our_data_df.to_csv('data/overall_homelessness.csv', index=False)
+# our_data_df.to_csv('../data/overall_homelessness.csv', index=False)
 
