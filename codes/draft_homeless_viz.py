@@ -128,3 +128,17 @@ ax2.legend(labels=change_perc.index, title = "State",
 plt.tight_layout()
 plt.show()
 #%%
+
+#%% md
+## Homeless population variability by state
+
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(15, 8))
+
+_ = sns.boxplot(data=change_perc[columns].T, ax=ax)
+
+plt.tight_layout()
+plt.show()
+
+#%%
+Selected_state = change_perc.index.to_list()
+print(Selected_state)
