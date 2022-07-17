@@ -1,0 +1,53 @@
+abbreviation,name,state,region
+AL,Alabama,1,South
+AK,Alaska,2,West
+AZ,Arizona,4,Southwest
+AR,Arkansas,5,South
+CA,California,6,West
+CO,Colorado,8,West
+CT,Connecticut,9,New England
+DE,Delaware,10,Middle Atlantic
+DC,District of Columbia,11,Middle Atlantic
+FL,Florida,12,South
+GA,Georgia,13,South
+HI,Hawaii,15,West
+ID,Idaho,16,West
+IL,Illinois,17,Midwest
+ID,Indiana,18,Midwest
+IA,Iowa,19,Midwest
+KS,Kansas,20,Midwest
+KY,Kentucky,21,South
+LA,Louisiana,22,South
+MA,Maine,23,New England
+MD,Maryland,24,Middle Atlantic
+MA,Massachusetts,25,New England
+MI,Michigan,26,Midwest
+MN,Minnesota,27,Midwest
+MS,Mississippi,28,South
+MO,Missouri,29,South
+MT,Montana,30,West
+NE,Nebraska,31,Midwest
+NV,Nevada,32,West
+NH,New Hampshire,33,New England
+NJ,New Jersey,34,Middle Atlantic
+NM,New Mexico,35,Southwest
+NY,New York,36,Middle Atlantic
+NC,North Carolina,37,South
+ND,North Dakota,38,Midwest
+OH,Ohio,39,Midwest
+OK,Oklahoma,40,Southwest
+OR,Oregon,41,West
+PA,Pennsylvania,42,Middle Atlantic
+PR,Puerto Rico,72,NA
+RI,Rhode Island,44,New England
+SC,South Carolina,45,South
+SD,South Dakota,46,Midwest
+TN,Tennessee,47,South
+TX,Texas,48,Southwest
+UT,Utah,49,West
+VT,Vermont,50,New England
+VA,Virginia,51,South
+WA,Washington,53,West
+WV,West Virginia,54,South
+WI,Wisconsin,55,Midwest
+WY,Wyoming,56,West
