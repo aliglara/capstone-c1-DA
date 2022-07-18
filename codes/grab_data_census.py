@@ -2,8 +2,6 @@
 import pandas as pd
 import json
 import requests
-
-
 # %% User-function
 def grab_data(year_list, features_str, api_key):
     """Pull data from census.gov
@@ -65,7 +63,7 @@ def create_dataframe_data(var_dict, api_census, ini_year, end_year=None):
 
 # %%
 # Reading api key
-f = open('../../../apis/credential_keys.json', "r")
+f = open('/Users/aliglara/Documents/MyGit/apis/credential_keys.json', "r")
 api_keys = json.load(f)
 
 # %%
@@ -166,12 +164,15 @@ raw_data = pd.read_excel('../data/2007-2021-PIT-Counts-by-State.xlsx', sheet_nam
 var_name = 'Overall Homeless, '
 
 years = [i for i in range(first_year, last_year + 1)]
-our_data = [list(raw_data[str(year)][var_name + str(year)][:-1].values) for year in years]
+our_data = []
+for year in years:
+    home_slicing = raw_data[str(year)][['State', var_name + str(year)]][:-1]
+    home_slicing["Year"] = year
+    our_data.extend(home_slicing.values.tolist())
 
 homelessness_df = pd.DataFrame(our_data,
-                               columns=raw_data[str(years[0])]['State'][:-1])
-homelessness_df['Year'] = years
-homelessness_df.set_index('Year', inplace=True)
+                               columns=['abbreaviation', 'homeless_pop', 'year'])
+homelessness_df.set_index('year', inplace=True)
 
 homelessness_df.to_csv('../data/overall_homelessness.csv')
 
