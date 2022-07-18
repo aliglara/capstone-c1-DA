@@ -22,7 +22,7 @@ def grab_data(year_list, features_str, api_key):
         if year == 2020:
             acs_string = 'acs5'
         url_string = 'https://api.census.gov/data/{}/acs/' + acs_string + '?get=NAME,{}&for=state:*&key={}'
-        url = url_string.format(year, features_str, api_key['API'][0]['key'])
+        url = url_string.format(year, features_str, api_key['apis']['uscensus']['key'])
         json_text = requests.request("GET", url).json()
         for row in range(1, len(json_text)):
             json_text[row].insert(0, year)
@@ -65,7 +65,7 @@ def create_dataframe_data(var_dict, api_census, ini_year, end_year=None):
 
 # %%
 # Reading api key
-f = open('../../../apis/api_keys.json', "r")
+f = open('../../../apis/credential_keys.json', "r")
 api_keys = json.load(f)
 
 # %%
