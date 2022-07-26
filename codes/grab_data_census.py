@@ -1,7 +1,10 @@
 # %%
-import pandas as pd
 import json
+
+import pandas as pd
 import requests
+
+
 # %% User-function
 def grab_data(year_list, features_str, api_key):
     """Pull data from census.gov
@@ -157,7 +160,7 @@ for variable, name in zip(var_files, name_files):
     df = create_dataframe_data(variable, api_keys, first_year, last_year)
     df.to_csv('../data/' + name + '.csv', index=False)
 
-#%%
+# %%
 # Now info from HIC
 
 raw_data = pd.read_excel('../data/2007-2021-PIT-Counts-by-State.xlsx', sheet_name=None)
@@ -176,4 +179,4 @@ homelessness_df.set_index('year', inplace=True)
 
 homelessness_df.to_csv('../data/overall_homelessness.csv')
 
-#%%
+# %%
