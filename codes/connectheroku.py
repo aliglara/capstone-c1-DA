@@ -20,6 +20,7 @@ def connect_database(project, filepath):
 def make_query(query_string, project, filepath):
     f = open(filepath, "r")
     credentials = json.load(f)
+    f.close()
     conn = psycopg2.connect(
         host=credentials['databases']["heroku"][project]['host'],
         user=credentials['databases']["heroku"][project]['user'],
