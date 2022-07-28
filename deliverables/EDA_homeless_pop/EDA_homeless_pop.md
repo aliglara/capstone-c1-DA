@@ -298,7 +298,7 @@ Let's add 4 columns to the dataframe:
 
 - Homeless population percentage
 - Change of homeless population percentage yearly
-- Normalized homeless population 
+- Normalized homeless population
 - Normalized total population
 
 Equations:
@@ -394,11 +394,10 @@ $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{populat
 <img src="output_19_0.png"  width=90%> 
 
 
-Takeaways:
-- Since 2018, the total US-homeless population has increased an average of 2.5% yearly
-- Based on the Census.gov database, the highest US homeless population was registered in 2020
-- The US population registered a 0.5%-decrease between 2019 and 2020
-- The homeless population is 0.16% of the total population from 2015 to 2020
+    - Since 2018, the total US-homeless population has increased an average of 2.5% yearly
+    - Based on the Census.gov database, the highest US homeless population was registered in 2020
+    - The US population registered a 0.5%-decrease between 2019 and 2020
+    - The homeless population is 0.16% of the total population from 2015 to 2020
 
 ### How the homeless population is distributed on the US territories
 
@@ -419,7 +418,7 @@ The top ten states list isn't kept constant during the period study.
 Let's find out which states were on the top 10 list per year
 
 
-    Between 2015 and 2020, these are the 13 states that has been reported in the top 10 homeless population list:
+    Between 2015 and 2020, these are 13 states that have been reported in the top 10 homeless population list:
 
     0        California
     1          New York
@@ -1339,7 +1338,7 @@ From the previous results, the average of the median income had been increased y
 
 <img src="output_86_0.png" width=75%> 
 
-What it would be maximum rent cost a graduate professional could afford?
+What it would be the maximum rent cost a graduate professional could afford?
 
 For this estimation, let's assume a professional will have to pay 37% in taxes and a mandatory requirement is that his/her monthly income has to twice higher than the rent cost offered.
 
