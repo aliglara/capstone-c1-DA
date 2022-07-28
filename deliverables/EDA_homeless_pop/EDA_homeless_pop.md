@@ -1342,7 +1342,7 @@ What it would be the maximum rent cost a graduate professional could afford?
 
 For this estimation, let's assume a professional will have to pay 37% in taxes and a mandatory requirement is that his/her monthly income has to twice higher than the rent cost offered.
 
-$$ \text{max rent cost} = \text{salary}\, \left(\frac{100 - \text{tax perc}}{12 \cdot \text{ratio} \cdot 100}\right) $$
+$$ \text{max rent cost} = \text{salary}\cdot \left(\frac{100 - \text{tax perc}}{12 \cdot \text{ratio} \cdot 100}\right) $$
 
 
 
