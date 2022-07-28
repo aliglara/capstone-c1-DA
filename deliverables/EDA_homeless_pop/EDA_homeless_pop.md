@@ -297,11 +297,16 @@ total_pt = pd.pivot_table(
 Let's add 4 columns to the dataframe:
 
 - Homeless population percentage
-$$ \text{Homeless pop (\%)} = \frac{\text{Homeless pop}}{\text{Population}} \; 100 $$
 - Change of homeless population percentage yearly
 - Normalized homeless population 
-$$ \text{Normalized homeless population} = \frac{\text{homeless population(i)}}{\max(\text{homeless population})} $$
 - Normalized total population
+
+Equations:
+
+$$ \text{Homeless pop (\%)} = \frac{\text{Homeless pop}}{\text{Population}} \; 100 $$
+
+$$ \text{Normalized homeless population} = \frac{\text{homeless population(i)}}{\max(\text{homeless population})} $$
+
 $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{population})} $$
 
 
