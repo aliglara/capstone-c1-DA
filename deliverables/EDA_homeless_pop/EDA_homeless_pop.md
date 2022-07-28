@@ -36,12 +36,10 @@ Second, The estimate of homelessness population by state was pulled out from the
 
 **The dataset was stored on my Heroku server to brush up on SQL coding. However, the original csv files are available in the GitHub repository. Click on -> ([link](https://github.com/aliglara/capstone-c1-DA/tree/main/data))**
 
-
-## US population and homeless populatio information
+## US population and homeless population information
 
 ### Grabbing and combining datasets
 Let's combine the information from the Census.gov and HUC dataset using a SQL
-
 
 <div>
 <table border="1" class="dataframe">
@@ -149,8 +147,6 @@ Let's combine the information from the Census.gov and HUC dataset using a SQL
 </div>
 
 
-
-
 ```python
 # Verify if there are null values
 ```
@@ -173,19 +169,6 @@ Let's combine the information from the Census.gov and HUC dataset using a SQL
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -312,6 +295,7 @@ total_pt = pd.pivot_table(
 ```
 
 Let's add 4 columns to the dataframe:
+
 - Homeless population percentage
 $$ \text{Homeless pop (\%)} = \frac{\text{Homeless pop}}{\text{Population}} \; 100 $$
 - Change of homeless population percentage yearly
@@ -322,19 +306,6 @@ $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{populat
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -415,9 +386,7 @@ $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{populat
 </table>
 </div>
 
-  
-![png](output_19_0.png)
-    
+<img src="output_19_0.png"  width=90%> 
 
 
 Takeaways:
@@ -428,17 +397,15 @@ Takeaways:
 
 ### How the homeless population is distributed on the US territories
 
-    
-![png](output_23_0.png)
-    
+<img src="output_23_0.png"  width=90%> 
 
 
 Based on those figures, California is the state with a higher homeless population. Besides, there were no significant changes in the states with homeless people during the last four years.
 
 Let's find out what are the top 10 states for each year
-    
-![png](output_25_0.png)
-    
+
+<img src="output_25_0.png"  width=90%> 
+
 
 
 What are the states that has been reported on the top 10 list between 2015 to 2020?
@@ -469,19 +436,6 @@ Let's find out which states were on the top 10 list per year
 What are the US regions where those states belong to?
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -615,19 +569,6 @@ year25_pt = pd.pivot_table(
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -714,19 +655,6 @@ some_population_pt = pd.pivot_table(
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -797,19 +725,6 @@ $$ \text{ratio} = \frac{\text{Homeless population}}{\text{Total population}}\cdo
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -944,19 +859,6 @@ subdata.groupby(["State name"])["% homeless"].agg(['mean', 'std']).sort_values(
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1070,19 +972,6 @@ $$ \text{Perc bachelor or higher} = \frac{\text{Bachelor degree or higher}}{\tex
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" style="width:100px">
   <thead>
     <tr style="text-align: right;">
@@ -1260,19 +1149,6 @@ renter_occupied_df.pivot_table(
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" width="100px">
   <thead>
     <tr style="text-align: right;">
@@ -1404,19 +1280,6 @@ average_income_pt = pd.pivot_table(
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1480,19 +1343,6 @@ $$ \text{max rent cost} = \text{salary}\, \left(\frac{100 - \text{\% taxes}}{12 
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" style="width:100px">
   <thead>
     <tr style="text-align: right;">
@@ -1636,22 +1486,7 @@ pd.pivot_table(data=earning_df,
 ```
 
 
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1789,19 +1624,6 @@ pd.pivot_table(data=earning_df,
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" width="100px">
   <thead>
     <tr style="text-align: right;">
@@ -1945,19 +1767,6 @@ Assuming the rent cost and median earnings data for master or above graduated is
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" style="width:100px">
   <thead>
     <tr style="text-align: right;">
@@ -2077,23 +1886,6 @@ pd.pivot_table(data=subdata,
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -2209,19 +2001,6 @@ At this point, it seems there will have cheaper houses available for renting
 In this section, we worked on the dataset 'gross_rent.csv' where we had the distribution of renter housing units by rental cost range, by state and year.
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" style="width:100px">
   <thead>
     <tr style="text-align: right;">
@@ -2377,19 +2156,6 @@ In this section, we worked on the dataset 'gross_rent.csv' where we had the dist
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe" style="width:100px">
   <thead>
     <tr style="text-align: right;">
