@@ -303,7 +303,7 @@ Let's add 4 columns to the dataframe:
 
 Equations:
 
-$$ \text{Homeless pop (\%)} = \frac{\text{Homeless pop}}{\text{Population}} \; 100 $$
+$$ \text{Homeless pop perc.} = \frac{\text{Homeless pop}}{\text{Population}} \cdot 100 $$
 
 $$ \text{Normalized homeless population} = \frac{\text{homeless population(i)}}{\max(\text{homeless population})} $$
 
