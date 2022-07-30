@@ -637,7 +637,7 @@ year25_pt = pd.pivot_table(
 </table>
 </div>
 
-<img src="output_46_0.png"  width=95%> 
+<img src="output_46_0.png"  width=700> 
 
 From the left plot, the 25-year population who have earned a formal educational level increased by around 4% from 2015 to 2019. However, in 2020, an almost 1% decrease is shown. 
 
