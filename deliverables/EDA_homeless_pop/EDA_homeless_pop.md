@@ -391,7 +391,7 @@ $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{populat
 </table>
 </div>
 
-<img src="output_19_0.png"  width=90%> 
+<img src="output_19_0.png"  width=700> 
 
 
     - Since 2018, the total US-homeless population has increased an average of 2.5% yearly
@@ -401,7 +401,7 @@ $$ \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{populat
 
 ### How the homeless population is distributed on the US territories
 
-<img src="output_23_0.png"  width=90%> 
+<img src="output_23_0.png"  width=700> 
 
 
 Based on those figures, California is the state with a higher homeless population. Besides, there were no significant changes in the states with homeless people during the last four years.
@@ -532,7 +532,7 @@ What are the US regions where those states belong to?
 </table>
 </div>
 
-<img src="output_34_0.png"  width=80% height=80%>
+<img src="output_34_0.png"  height=300>
 
 From the last figure, it can be shown the US-region where most high-homeless population states are located in the West region.
 
@@ -540,7 +540,7 @@ From the last figure, it can be shown the US-region where most high-homeless pop
 
 In order to show the variation over time, let's create a lineplot.
 
-<img src="output_38_0.png"  width=80% height=80%>     
+<img src="output_38_0.png"  height=350>     
 
 Based on this figure, California (CA) is the state where the homelessness population has increased the most from 2018 to 2020. The New York state (NY) has shown a continuous homelessness increase.
 
@@ -548,7 +548,7 @@ In contrast, Florida (FL) has shown a continuous decrease since 2015. Let's see 
 
 Due the magnitud order, the homeless population for the rest of the states has been shrunk to the plot bottom. Because of that, let's split the graph
 
-<img src="output_41_0.png"  width=80% height=80%> 
+<img src="output_41_0.png"  height=350> 
 
 On the previous graph, it is possible to observe that the homeless population has increased considerably in Texas and Washington states. In contrast, Pennsylvania and  Illinois show that growth slowed down noticeably.
 An interesting case is Georgia state, where homelessness has decreased dramatically. Finally, Colorado state shows a steady level, while Ohio appeared on the map in 2019 with a 3%-increase in the homeless population.
@@ -710,7 +710,7 @@ some_population_pt = pd.pivot_table(
 </div>
 
 
-<img src="output_52_0.png"  width=95%> 
+<img src="output_52_0.png"  width=350> 
     
 
 
@@ -834,7 +834,7 @@ $$ \text{ratio} = \frac{\text{Homeless population}}{\text{Total population}}\cdo
 </div>
 
 
-<img src="output_57_0.png"  width=80%> 
+<img src="output_57_0.png"  width=350> 
 
 
 From the graph, **New York** is the state with the highest proportion of people experiencing  homelessness. Along New York, the states with higher ratio homeless/population are: *California, Oregon, Washington and Massachusetts*.
@@ -844,7 +844,7 @@ On the other hand, *Colorado, Florida, Arizona* have a lower ratio, while **Illi
 The group top ratio homeless-population states can be split at 0.25% level.
 
 
-<img src="output_60_0.png"  width=95%>   
+<img src="output_60_0.png"  width=700>   
 
 These plots are interesting because show which states have had higher variance (change) on the ratio homeless-population in the last 6 years.
 
@@ -1248,7 +1248,7 @@ renter_occupied_df.pivot_table(
 </table>
 </div>
 
-<img src="output_77_0.png"  width=85%>     
+<img src="output_77_0.png"  width=350>     
 
     From there, we can say:
     - From 2015 to 2020, bachelor's or above has rented between 22% to 35% of the rental housing market in the selected states.
@@ -1335,7 +1335,7 @@ average_income_pt = pd.pivot_table(
 
 From the previous results, the average of the median income had been increased yearly from 2015 to 2019 for both professional groups. However, from 2019 to 2020 their income decreased by 5% approx.
 
-<img src="output_86_0.png" width=75%> 
+<img src="output_86_0.png" width=350> 
 
 What it would be the maximum rent cost a graduate professional could afford?
 
@@ -1748,8 +1748,10 @@ pd.pivot_table(data=earning_df,
 
 
 The average gross rent cost in the selected states had had a constant increase between 2015 to 2019. Nevertheless, in 2020 showed a slightly decrease.
-    
-![png](output_97_0.png)
+
+
+
+<img src="output_97_0.png"  width=700> 
     
 
 
@@ -1850,7 +1852,7 @@ Assuming the rent cost and median earnings data for master or above graduated is
 </table>
 </div>
 
-<img src="output_105_0.png"  width=75%> 
+<img src="output_105_0.png"  width=350> 
 
 ## Distribution of renter housing units by income salary
 
@@ -1862,7 +1864,7 @@ Based on our last result, let's focus on Georgia, Massachusetts, Washington, New
     ['Georgia', 'Massachusetts', 'Washington', 'New York', 'California']
 
 
-<img src="output_112_0.png"  width=80% height=80%>   
+<img src="output_112_0.png"  height=700>   
     
 
 
@@ -2637,20 +2639,19 @@ A Barplot is requiered a categorical variable on the x-axis, in our case, gross 
 
 The next figure shows a set of 6 barplots (one for each year) for each state.
 
-    
-![png](output_126_0.png)
-    
+
+
+<img src="output_126_0.png"  height=700> 
 
 
 Based on the picture, the most of the renter housing units are in the range of $750 to $2,500. However, it is difficult to observe if the number of units has changed over time.
 
 ### Cumulative Distribution of renter housing units
 Let's plot a cumulative distribution by state by year
-    
-![png](output_130_0.png)
-    
 
 
+<img src="output_130_0.png"  height=700> 
+    
 There are several takeaways from there.
 1. In the universe of the 10 top states where there has been a significant change in the homeless population, there are more housing units with rent costs between $750 to $2,000.
 2. California has the highest number of housing units for rent in the USA.
