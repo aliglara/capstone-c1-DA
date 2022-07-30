@@ -717,7 +717,6 @@ some_population_pt = pd.pivot_table(
 From this plot, the distribution of population in households, in labor and bachelor's graduate have kept almost the same since 2017. 
 
 **Note**: 
-
     The Pop. in houselds and Pop. in labor percentages were calculated over the US-state population. However, the Bachelor+ in labor was calculated over the Pop. in labor for the US-state population
 
 ## Selection of the US states for further analysis
