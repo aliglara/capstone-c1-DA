@@ -532,7 +532,7 @@ What are the US regions where those states belong to?
 </table>
 </div>
 
-<img src="output_34_0.png"  height=300>
+<img src="output_34_0.png"  height=375>
 
 From the last figure, it can be shown the US-region where most high-homeless population states are located in the West region.
 
@@ -710,7 +710,7 @@ some_population_pt = pd.pivot_table(
 </div>
 
 
-<img src="output_52_0.png"  width=350> 
+<img src="output_52_0.png"  width=700> 
     
 
 
@@ -834,7 +834,7 @@ $$ \text{ratio} = \frac{\text{Homeless population}}{\text{Total population}}\cdo
 </div>
 
 
-<img src="output_57_0.png"  width=350> 
+<img src="output_57_0.png"  width=375> 
 
 
 From the graph, **New York** is the state with the highest proportion of people experiencing  homelessness. Along New York, the states with higher ratio homeless/population are: *California, Oregon, Washington and Massachusetts*.
@@ -1248,7 +1248,7 @@ renter_occupied_df.pivot_table(
 </table>
 </div>
 
-<img src="output_77_0.png"  width=350>     
+<img src="output_77_0.png"  width=375>     
 
     From there, we can say:
     - From 2015 to 2020, bachelor's or above has rented between 22% to 35% of the rental housing market in the selected states.
@@ -1335,7 +1335,7 @@ average_income_pt = pd.pivot_table(
 
 From the previous results, the average of the median income had been increased yearly from 2015 to 2019 for both professional groups. However, from 2019 to 2020 their income decreased by 5% approx.
 
-<img src="output_86_0.png" width=350> 
+<img src="output_86_0.png" width=375> 
 
 What it would be the maximum rent cost a graduate professional could afford?
 
@@ -1751,7 +1751,7 @@ The average gross rent cost in the selected states had had a constant increase b
 
 
 
-<img src="output_97_0.png"  width=700> 
+<img src="output_97_0.png"  width=750> 
     
 
 
