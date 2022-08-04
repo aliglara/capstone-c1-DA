@@ -18,13 +18,12 @@ Topic: Rental Rise Cost
 | Source | [https://data.census.gov](https://data.census.gov)|
 | Direct link | [https://data.census.gov/cedsci/table?q=United%20States](https://data.census.gov/cedsci/table?q=United%20States)|
 
-
 ### US Homelessness database
 
 |||
-|-|-
-| File name | 2007-2021-PIT-Counts-by-State (2007 - 2020) 
-| Name | PIT and HIC Data Since 2007
-| Size | 1.1 MB
-| Source | [https://data.census.gov](https://data.census.gov)
-| Direct link | [https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/)
+|-|-|
+| File name | 2007-2021-PIT-Counts-by-State (2007 - 2020)|
+| Name | PIT and HIC Data Since 2007|
+| Size | 1.1 MB|
+| Source | [https://data.census.gov](https://data.census.gov)|
+| Direct link | [https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/)|
