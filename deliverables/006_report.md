@@ -13,7 +13,7 @@ Our goal is to create a data-driven tool that will demonstrate whether there is 
 ### Business Impact
 
 Homelessness has a massive impact on the health and well-being of families nationwide. Among numerous health issues, homeless people are exposed to more outside elements -- hot, cold, rain, snow, hurricanes,
-tornados, which increase the likelihood of getting sickness, injury, or disease can spread. 
+tornados, which increase the likelihood of getting sickness, injury, or disease can spread.
 
 Additionally, [Bridges](https://journals.sagepub.com/doi/abs/10.1177/00111287221087957) (2022) has reported a strong correlation between homelessness and crime, which does not necessarily mean that homeless people cause offense. But due to harsh living conditions and a lack of defending themselves, they are vulnerable to hate crime.
 
@@ -63,15 +63,16 @@ Describe how the info was taken from census.gov
 ## Exploratory Data Analysis
 
 The EDA was split in the following sections:
+
 1. General population and Homeless population data
 2. Gross rent increase
 3. Income and rent expenses by bachelor's professional or above
 
-## US population and homeless populatio information
+## US population and homeless population information
 
 ### Grabbing and combining datasets
-Let's combine the information from the Census.gov and HUC dataset using a SQL
 
+Let's combine the information from the Census.gov and HUC dataset using a SQL
 
 ```python
 query = (
@@ -108,13 +109,9 @@ query = (
 raw_data_df = cheroku.make_query(query, "c1_capstone", credential_file)
 ```
 
-
 ```python
 raw_data_df.head()
 ```
-
-
-
 
 <div>
 <table border="1" class="dataframe">
@@ -221,78 +218,7 @@ raw_data_df.head()
 </table>
 </div>
 
-
-
-
-```python
-# Verify if there are null values
-
-print(raw_data_df.isnull().sum())
-```
-
-    year                                                   0
-    name_state                                             0
-    abbreaviation                                          0
-    population                                             0
-    homeless_pop                                           0
-    population_in_households                               0
-    pop_in_labor_force                                     0
-    bachelor_or_higher_pop_in_labor_force                  0
-    total_population_25_years_and_over_educ_attainment     0
-    population_25_years_and_over_no_schooling_completed    0
-    population_25_years_and_over_bachelor_degree           0
-    pop_25y_master_over                                    0
-    region                                                 0
-    dtype: int64
-
-
-
-```python
-raw_data_df.rename({
-    "year" : "Year" ,
-    "name_state" : "State name",
-    "abbreaviation" : "State abbr",
-    "population" : "Population",
-    "homeless_pop" : "Homeless pop",
-    "population_in_households" : "Pop in households",
-    "pop_in_labor_force" : "Pop in labor force",
-    "bachelor_or_higher_pop_in_labor_force" : "Bachelor+ in labor force",
-    "total_population_25_years_and_over_educ_attainment": "Pop. 25year+ educ",
-    "population_25_years_and_over_no_schooling_completed": "Pop. 25year+ no schooling",
-    "population_25_years_and_over_bachelor_degree": "Pop. 25year+ bachelor",
-    "pop_25y_master_over": "Pop. 25year+ master over",
-    "region" : "Region"
-}, axis='columns', inplace=True)
-```
-
-
-```python
-indexed_data_df = raw_data_df.copy()
-indexed_data_df.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-indexed_data_df.head()
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -402,72 +328,23 @@ indexed_data_df.head()
 </table>
 </div>
 
-
-
 ### How the US population has changed from 2015 to 2020
 
-
-```python
-# Perform some aggregation functions on the data
-# Pivot table for total number per year
-total_pt = pd.pivot_table(
-    data= indexed_data_df,
-    index="Year",
-    values=["Population", "Homeless pop"],
-    aggfunc=sum
-)
-```
-
-
-```python
-def norm_column(serie):
-    return serie/serie.max()
-```
-
 Let's add 4 columns to the dataframe:
+
 - Homeless population percentage
 - Change of homeless population percentage yearly
-- Normalized homeless population 
+- Normalized homeless population
 - Normalized total population
 
-$$ 
+$$
 \begin{aligned}
  & \text{Homeless pop perc.} = \frac{\text{Homeless pop}}{\text{Population}} \cdot 100 \\
- & \text{Normalized homeless population} = \frac{\text{homeless population(i)}}{\max(\text{homeless population})}\\
- & \text{Normalized population} = \frac{\text{population(i)}}{\max(\text{population})}
+ & \text{Normalized population} = \frac{\text{population(i)} - \min(\text{population})}{\max(\text{population}) - \min(\text{population})}
 \end{aligned}
 $$
 
-
-```python
-total_pt["Homeless pop (%)"] = total_pt["Homeless pop"] / total_pt["Population"] * 100
-total_pt["Homeless change (%)"] = total_pt["Homeless pop"].pct_change() * 100
-total_pt["Homeless adim"] = norm_column(total_pt["Homeless pop"])
-total_pt["Pop adim"] = norm_column(total_pt["Population"])
-```
-
-
-```python
-total_pt
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -548,56 +425,10 @@ total_pt
 </table>
 </div>
 
-
-
-
-```python
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(30/2.54, 16/2.54))
-_ = sns.regplot(x=total_pt.index,
-                y="Homeless pop",
-                data=total_pt,
-                ax=ax1,
-                order=2
-                )
-
-_ = sns.lineplot(x=total_pt.index, y="Pop adim",
-                 data=total_pt,
-                 ax=ax2, color=blue, label='Total pop.',
-                 marker='o', markersize=10)
-ax2.fill_between(x=total_pt.index,
-                 y1=total_pt["Homeless adim"].min(),
-                 y2=total_pt["Pop adim"],
-                 color=blue,
-                 alpha=0.5)
-_ = sns.lineplot(x=total_pt.index, y="Homeless adim",
-                 data=total_pt,
-                 ax=ax2, color=orange, label='Homeless pop.',
-                 marker='o', markersize=10)
-ax2.fill_between(x=total_pt.index,
-                 y1=total_pt["Homeless adim"].min(),
-                 y2=total_pt["Homeless adim"],
-                 color=orange,
-                 alpha=0.5)
-ax2.set(ylabel="Normalized Population", xlabel="Years",
-       xlim=[2015, 2020], ylim=[total_pt["Homeless adim"].min(), 1])
-ax2.legend(loc='best')
-ax2.set_title("Homeless vs. Total population")
-
-ax1.set(ylabel="Total homeless population", xlabel="Years")
-ax1.set_title("US Homeless population")
-ax1.yaxis.set_major_formatter(plt.FuncFormatter(format_func))
-
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_19_0.png)
-    
-
+![png](images/EDA_homeless_pop_19_0.png)
 
 Takeaways:
+
 - Since 2018, the total US-homeless population has increased an average of 2.5% yearly
 - Based on the Census.gov database, the highest US homeless population was registered in 2020
 - The US population registered a 0.5%-decrease between 2019 and 2020
@@ -605,92 +436,24 @@ Takeaways:
 
 ### How the homeless population is distributed on the US territories
 
+![png](images/EDA_homeless_pop_23_0.png)
 
-```python
-years = raw_data_df["Year"].unique().tolist()
-```
-
-
-```python
-_, axes = plt.subplots(3, 2, figsize=(30/2.54, 40/2.54), sharex=True)
-for year, ax in zip(years, axes.ravel()):
-    df = raw_data_df[raw_data_df["Year"] == year].sort_values(by="Homeless pop", ascending=False)
-    _ = sns.barplot(y="State abbr", x="Homeless pop", data=df, ax=ax, 
-                    palette="Blues_r")
-    ax.set_title(year)
-    ax.set(xlabel="Homeless population", ylabel="State")
-    ax.tick_params(axis='y', labelsize=8)
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_23_0.png)
-    
-
-
-Based on those figures, CA is the state with a higher homeless population. Besides, there were no massive changes in the states with homeless people during the last four years.
+Based on those figures, California is the state with a higher homeless population. Besides, there were no massive changes in the states with homeless people during the last four years.
 
 Let's find out what are the top 10 states for each year
 
-
-```python
-fig, axes = plt.subplots(3, 2, figsize=(30/2.54, 32/2.54))
-for year, ax in zip(years, axes.ravel()):
-    df = raw_data_df[raw_data_df["Year"] == year].sort_values(by="Homeless pop", ascending=False)
-    _ = sns.barplot(y="State abbr", x="Homeless pop", data=df.head(10),
-                    palette="Blues_r", ax=ax, orient="h")
-    ax.set_title(year)
-    ax.tick_params(axis='both', which='major', labelsize=12)
-    ax.set(xlabel="Homeless pop", ylabel="State")
-    ax.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_25_0.png)
-    
-
+![png](images/EDA_homeless_pop_25_0.png)
 
 What are the states that has been reported on the top 10 list between 2015 to 2020?
 
-The top ten states list isn't kept constant during the period study. 
+The top ten states list isn't kept constant during the period study.
 Let's find out which states were on the top 10 list per year
 
-
-```python
-top_states_index = []
-for year in years:
-    (top_states_index.extend(raw_data_df[raw_data_df["Year"] == year].sort_values(by="Homeless pop", 
-                                                                                  ascending=False).head(10).index.to_list()))
-```
-
-
-```python
-# Let's put this into a dataframe
-top_states_df = raw_data_df.loc[top_states_index, "State name"]
-top_states_df.reset_index(inplace=True, drop=True)
-```
-
-
-```python
-name_top_states = top_states_df.unique()
-print("Between {} and {}, these are the {} states that has been reported in the top 10 homeless population".format(min(years), max(years), len(name_top_states)))
-```
-
-    Between 2015 and 2020, these are the 13 states that has been reported in the top 10 homeless population
-
-
+Between 2015 and 2020, these are the 13 states that has been reported in the top 10 homeless population
 
 ```python
 pd.Series(name_top_states)
 ```
-
-
-
 
     0        California
     1          New York
@@ -705,170 +468,10 @@ pd.Series(name_top_states)
     10         Colorado
     11             Ohio
     12          Arizona
-    dtype: object
-
-
 
 What are the US regions where those states belong to?
 
-
-```python
-query = ("SELECT sr.abbreviation, "
-         "sr.name, sr.region "
-         "FROM state_region AS sr "
-         "WHERE sr.name IN (" + "'" +"','".join(name_top_states.tolist()) + "')")
-which_states = cheroku.make_query(query, "c1_capstone", credential_file)
-```
-
-
-```python
-which_states
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>abbreviation</th>
-      <th>name</th>
-      <th>region</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>AZ</td>
-      <td>Arizona</td>
-      <td>Southwest</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>CA</td>
-      <td>California</td>
-      <td>West</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>CO</td>
-      <td>Colorado</td>
-      <td>West</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>FL</td>
-      <td>Florida</td>
-      <td>South</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>GA</td>
-      <td>Georgia</td>
-      <td>South</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>IL</td>
-      <td>Illinois</td>
-      <td>Midwest</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>MA</td>
-      <td>Massachusetts</td>
-      <td>New England</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>NY</td>
-      <td>New York</td>
-      <td>Middle Atlantic</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>OH</td>
-      <td>Ohio</td>
-      <td>Midwest</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>OR</td>
-      <td>Oregon</td>
-      <td>West</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>PA</td>
-      <td>Pennsylvania</td>
-      <td>Middle Atlantic</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>TX</td>
-      <td>Texas</td>
-      <td>Southwest</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>WA</td>
-      <td>Washington</td>
-      <td>West</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-fig, ax = plt.subplots(figsize=(14, 8), 
-                       subplot_kw=dict(aspect="equal"), 
-                       dpi= 80)
-
-data = which_states["region"].value_counts()
-categories = which_states["region"].value_counts().index
-explode = [0.1,0,0,0,0,0]
-
-def func(pct, allvals):
-    absolute = int(pct/100.*np.sum(allvals))
-    return "{:.1f}% ({:d})".format(pct, absolute)
-
-wedges, texts, autotexts = ax.pie(data,
-                                  autopct=lambda pct: func(pct, data),
-                                  textprops=dict(color="w"),
-                                  colors=palettable.tableau.BlueRed_6.mpl_colors,
-                                  startangle=140,
-                                  explode=explode)
-
-# Decoration
-ax.legend(wedges, categories, title="US regions", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1))
-plt.setp(autotexts, size=12, weight=700)
-ax.set_title("Distribution of US states with high homeless population")
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_34_0.png)
-    
-
+![png](images/EDA_homeless_pop_34_0.png)
 
 From the last figure, it can be shown the US-region where most high-homeless population states are located in the West region.
 
@@ -876,37 +479,7 @@ From the last figure, it can be shown the US-region where most high-homeless pop
 
 In order to show the variation over time, let's create a lineplot.
 
-
-```python
-top_states_df = raw_data_df[raw_data_df["State name"].isin(name_top_states)]
-```
-
-
-```python
-_, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-for i, state in enumerate(name_top_states):
-    _ = sns.lineplot(x="Year", y="Homeless pop",
-                     data=top_states_df[top_states_df["State name"] == state],
-                     palette=palettable.tableau.BlueRed_12.mpl_colors,
-                     marker=all_shapes[i],
-                     markersize=12)
-
-ax.set_ylabel('Overall homeless population', fontsize=20)
-ax.legend(labels=name_top_states, title = "State",
-          fontsize = 'large',
-          bbox_to_anchor=(1.01, 1.01), loc="upper left")
-ax.set_xlabel('Year', fontsize=20)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(format_func))
-plt.tick_params(which='major', labelsize=15)
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_38_0.png)
-    
-
+![png](images/EDA_homeless_pop_38_0.png)
 
 Based on this figure, California (CA) is the state where the homelessness population has increased the most from 2018 to 2020. The New York state (NY) has shown a continuous homelessness increase.
 
@@ -914,45 +487,14 @@ In contrast, Florida (FL) has shown a continuous decrease since 2015. Let's see 
 
 Due the magnitud order, the homeless population for the rest of the states has been shrunk to the plot bottom. Because of that, let's split the graph
 
-
-```python
-out_state = ['California', 'New York', 'Florida']
-new_top_states = [i for i in name_top_states if i not in out_state]
-```
-
-
-```python
-_, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-for i, state in enumerate(new_top_states):
-    _ = sns.lineplot(x="Year", y="Homeless pop",
-                     data=top_states_df[top_states_df["State name"] == state],
-                     palette=palettable.tableau.BlueRed_12.mpl_colors,
-                     marker=all_shapes[i],
-                     markersize=12)
-
-ax.set_ylabel('Overall homeless population', fontsize=20)
-ax.legend(labels=new_top_states, title = "State",
-          fontsize = 'large',
-          bbox_to_anchor=(1.01, 1.01), loc="upper left")
-ax.set_xlabel('Year', fontsize=20)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(format_func))
-plt.tick_params(which='major', labelsize=15)
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_41_0.png)
-    
-
+![png](images/EDA_homeless_pop_41_0.png)
 
 On the previous graph, it is possible to observe that the homeless population has increased considerably in Texas and Washington states. In contrast, Pennsylvania and  Illinois show that growth slowed down noticeably.
 An interesting case is Georgia state, where homelessness has decreased dramatically. Finally, Colorado state shows a steady level, while Ohio appeared on the map in 2019 with a 3%-increase in the homeless population.
 
 ## Analyzing the 25 years and over US population
 
-The main project goal is to analyze recent US population data to answer the question: 
+The main project goal is to analyze recent US population data to answer the question:
 
 **Will a rent cost increment increase the risk of people who have been awarded a degree experiencing homelessness?**
 
@@ -960,38 +502,7 @@ Because of that, in the following section, a comparison between the US 25-year-a
 
 Let's create a pivot table where the 25 year and over population is summed by year
 
-
-```python
-year25_pt = pd.pivot_table(
-    data=indexed_data_df,
-    index="Year",
-    values=["Pop. 25year+ educ", "Pop. 25year+ no schooling", "Pop. 25year+ bachelor", "Pop. 25year+ master over"],
-    aggfunc='sum'
-)
-```
-
-
-```python
-year25_pt
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1058,44 +569,9 @@ year25_pt
 
 
 
+![png](images/EDA_homeless_pop_46_0.png)
 
-```python
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(30/2.54, 16/2.54))
-_ = sns.lineplot(x=year25_pt.index,
-                 y='Pop. 25year+ educ',
-                 data=year25_pt,
-                 ax=ax1)
-ax1.fill_between(x=year25_pt.index, 
-                 y1=year25_pt['Pop. 25year+ educ'].min(), 
-                 y2=year25_pt['Pop. 25year+ educ'], alpha=0.5)
-ax1.yaxis.set_major_formatter(plt.FuncFormatter(format_func))
-ax1.set(ylabel="Population 25 years and over by educational attainment")
-
-_ = sns.lineplot(x='Year',
-                 y='value',
-                 hue='variable',
-                 data=pd.melt(year25_pt.drop('Pop. 25year+ educ', axis=1).reset_index(), ["Year"]),
-                 ax=ax2,
-                 lw=3,
-                 markers=True,
-                 style='variable', 
-                 markersize=12)
-ax2.set(ylabel="Population 25 years and over by degree earned")
-ax2.legend(labels=['bachelor', 'master and over', 'no shooling'],
-           loc='best')
-ax2.yaxis.set_major_formatter(plt.FuncFormatter(format_func))
-fig.subplots_adjust(wspace=.3)
-plt.show()
-
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_46_0.png)
-    
-
-
-From the left plot, the 25-year population who have earned a formal educational level increased by around 4% from 2015 to 2019. However, in 2020, an almost 1% decrease is shown. 
+From the left plot, the 25-year population who have earned a formal educational level increased by around 4% from 2015 to 2019. However, in 2020, an almost 1% decrease is shown.
 
 On the left graph, the bachelor's graduate population has kept 30% higher than the master's and above graduates from 2015 to 2020.
 
@@ -1105,38 +581,7 @@ In general, bachelor's graduate population represent a 20% of the population bas
 
 ## US Population in labor force and in households
 
-
-```python
-some_population_pt = pd.pivot_table(
-    data=indexed_data_df.loc[2017:],
-    index="Year",
-    values=["Population", "Pop in households", "Pop in labor force", "Bachelor+ in labor force"],
-    aggfunc='sum'
-)
-```
-
-
-```python
-some_population_pt
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1187,43 +632,7 @@ some_population_pt
 </table>
 </div>
 
-
-
-
-```python
-cmap = palettable.tableau.BlueRed_6.mpl_colormap
-years = [2017, 2018, 2019, 2020]
-```
-
-
-```python
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(30/2.54, 30/2.54))
-for year, ax in zip(years, axes.ravel()):
-    temp_df = some_population_pt.loc[year]
-    names = ["Bachelor+ in labor", "Pop. in households", "Pop. in labor"]
-    sizes = np.round(np.array([temp_df["Bachelor+ in labor force"]/temp_df["Pop in labor force"],
-                               temp_df["Pop in households"]/temp_df["Population"],
-                               temp_df["Pop in labor force"]/temp_df["Population"]])*100, 2)
-    labels = [n + ' \n (' + str(i) + '%)' for n, i in zip(names, sizes)]
-    mapped_list = [cmap(i) for i in np.arange(0, 1, 1/len(sizes))]
-
-
-    squarify.plot(sizes=sizes,
-                  label=labels,
-                  color=mapped_list,
-                  alpha=.8,
-                  pad=True, ax=ax,
-                  text_kwargs={'fontsize':16, 'color': 'white'})
-    ax.set_title(year, c='black')
-    ax.axis("off")
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_52_0.png)
-    
-
+![png](images/EDA_homeless_pop_52_0.png)
 
 From this plot, the distribution of population in households, in labor and bachelor's graduate have kept almost the same since 2017
 
@@ -1233,34 +642,7 @@ In order to visualize the relative change between the homeless population and th
 
 $$ \text{ratio} = \frac{\text{Homeless population}}{\text{Total population}}\cdot 100 $$
 
-
-```python
-subdata = top_states_df[["Year", "State name", "Population", "Homeless pop"]].copy()
-subdata["% homeless"] = subdata["Homeless pop"] /subdata["Population"] * 100
-```
-
-
-```python
-subdata
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1366,33 +748,7 @@ subdata
 <p>78 rows × 5 columns</p>
 </div>
 
-
-
-
-```python
-fig, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-for i, state in enumerate(name_top_states):
-    _ = sns.lineplot(x="Year", y="% homeless",
-                     data=subdata[subdata["State name"] == state],
-                     palette=palettable.tableau.BlueRed_12.mpl_colors,
-                     marker=all_shapes[i],
-                     markersize=12)
-
-ax.set_ylabel('Homeless percentage (%)', fontsize=20)
-ax.legend(labels=name_top_states, title = "State",
-          fontsize = 'large',
-          bbox_to_anchor=(1.01, 1.01), loc="upper left")
-ax.set_xlabel('Year', fontsize=20)
-plt.tick_params(which='major', labelsize=15)
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_57_0.png)
-    
-
+![png](images/EDA_homeless_pop_57_0.png)
 
 From the graph, New York is the state with the highest proportion of people experiencing  homelessness. Along New York, the states with higher ratio homeless/population are: California, Oregon, Washington and Massachusetts.
 
@@ -1400,67 +756,13 @@ On the other hand, Colorado, Florida, Arizona have a lower ratio, while Illinois
 
 The group top ratio homeless-population states can be split at 0.25% level.
 
-
-```python
-df1 = subdata[subdata["% homeless"] > 0.25]
-df2 = subdata[subdata["% homeless"] < 0.25]
-```
-
-
-```python
-fig, axes = plt.subplots(1, 2, figsize=(30/2.54, 16/2.54))
-dataframes = [df1, df2]
-for dataframe, ax in zip(dataframes, axes.ravel()):
-    states = dataframe["State name"].unique().tolist()
-    for i, state in enumerate(states):
-        _ = sns.lineplot(x="Year", y="% homeless", 
-                         data=dataframe[dataframe["State name"] == state],
-                         palette=palettable.tableau.BlueRed_6.mpl_colors,
-                         marker=all_shapes[i], markersize=12, ax=ax)
-
-    ax.set_ylabel('Homeless Pop. Percentage (%)', fontsize=20)
-    ax.legend(labels=states, title = "State",
-               fontsize = 14, loc="best")
-    ax.set_xlabel('Year', fontsize=20)
-    ax.tick_params(axis='both', which='major', labelsize=15)
-
-plt.tight_layout()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_60_0.png)
-    
-
+![png](images/EDA_homeless_pop_60_0.png)
 
 These plots are interesting because show which states have had higher variance (change) on the ratio homeless-population in the last 6 years.
 
 Based on those results, a better selection of the states for further study can be done. Let's calculate the mean and std for each feature
 
-
-```python
-subdata.groupby(["State name"])["% homeless"].agg(['mean', 'std']).sort_values(
-    by="std", 
-    ascending=False)
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1544,23 +846,7 @@ subdata.groupby(["State name"])["% homeless"].agg(['mean', 'std']).sort_values(
 </table>
 </div>
 
-
-
 The selection of states will be those whose std % homeless is higher than 0.011
-
-
-```python
-final_state_list = subdata.groupby(["State name"])["% homeless"].agg('std').sort_values(ascending=False)
-list_states = final_state_list[final_state_list.values > 0.011].index.tolist()
-```
-
-
-```python
-list_states
-```
-
-
-
 
     ['California',
      'Massachusetts',
@@ -1571,74 +857,15 @@ list_states
      'Washington',
      'Colorado']
 
-
-
 ## Number of renter housing units by educational attainment level
 
 The data was taken from the census.gov and it refers to the number of housing units available for rent, and the amount of occupied by people based on their educational level.
 
 Therefore, the total of units by state represents the total number of renter housing units occupied by people based on their instructional level.
 
-
-```python
-query = ("SELECT "
-         "year, "
-         "name_state, "
-         "total_renter_occupied_units_educ_attainment, "
-         "renter_occupied_units_high_school_graduate, "
-         "renter_occupied_units_some_college_degree, "
-         "renter_occupied_units_bachelor_degree_or_higher "
-         "FROM us_population "
-         "WHERE name_state IN ('" + "', '".join(list_states) + "')")
-```
-
-
-```python
-renter_occupied_df = cheroku.make_query(query, "c1_capstone",credential_file )
-```
-
-
-```python
-renter_occupied_df.rename(
-    {'year': 'Year',
-     'name_state': 'State name',
-     'total_renter_occupied_units_educ_attainment': 'Total occupied units',
-     'renter_occupied_units_high_school_graduate': 'HS graduate', # High School graduate
-     'renter_occupied_units_some_college_degree' :'College degree',
-     'renter_occupied_units_bachelor_degree_or_higher' : 'Bachelor degree or higher'}, axis='columns', inplace=True)
-```
-
-### Percentage of the units occupied by Bachelors or above. 
-
-
-```python
-renter_occupied_df["Perc bachelor or higher"] = renter_occupied_df["Bachelor degree or higher"] / renter_occupied_df["Total occupied units"] * 100
-
-renter_occupied_df.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-renter_occupied_df
-```
-
-
-
+### Percentage of the units occupied by Bachelors or above
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2055,44 +1282,9 @@ renter_occupied_df
 </table>
 </div>
 
-
-
 Pivot Table for aggregating the percentage of occupied houses by Bachelors or above
 
-
-```python
-perc_renter_unit_by_bachelor_or_higher = (renter_occupied_df.pivot_table(index="State name",
-                                                                         columns="Year", 
-                                                                         values="Perc bachelor or higher").round(2))
-```
-
-
-```python
-perc_renter_unit_by_bachelor_or_higher = perc_renter_unit_by_bachelor_or_higher.transpose()
-```
-
-
-```python
-perc_renter_unit_by_bachelor_or_higher
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2189,94 +1381,25 @@ perc_renter_unit_by_bachelor_or_higher
 </table>
 </div>
 
+![png](images/EDA_homeless_pop_77_0.png)
 
+## Takeaways
 
-
-```python
-
-fig, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-g = sns.lineplot(data=perc_renter_unit_by_bachelor_or_higher,
-                 palette=palettable.tableau.Tableau_10.mpl_colors[:8],
-                 ax=ax, markers=True, markersize=14, lw=2)
-ax.set(ylabel="% Renter Occupied Units by Bachelors or higher", 
-              xlabel="Year")
-plt.tick_params(axis='both', which='major', labelsize=14)
-plt.legend(loc=2, bbox_to_anchor= (1,1),
-           title="State", fontsize=12, title_fontsize=14)
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_77_0.png)
-    
-
-
-## Takeaways:
 From there, we can say:
+
 - From 2015 to 2020, bachelor's or above has rented between 22% to 35% of the rental housing market in the selected states.
 - Oregon had shown around 2%-increment in houses rented by bachelors or above between 2017 and 2020. In contrast, it was about a 1%-decrease between 2019 and 2020 is shown in Massachusetts and Colorado.
 - For the rest of the states, the rental rate is slowing down.
 
-## Median income of bachelors or above 
-In this section, the features related to income and gross rent cost are analyzed focusing on professional householders. 
+## Median income of bachelors or above
 
-
-```python
-query = ("SELECT year, name_state, "
-         " median_earnings_bachelor, "
-         " median_earnings_master_or_above, "
-         " median_gross_rent "
-         " FROM us_population "
-         " WHERE name_state IN ('" + "', '".join(list_states) + "')")
-earning_df = cheroku.make_query(query, "c1_capstone", credential_file)
-```
-
-
-```python
-earning_df.rename({
-    "year": "Year",
-    "name_state": "State name",
-    "median_earnings_bachelor": "Bachelor earning",
-    "median_earnings_master_or_above": "Master or above earning",
-    "median_gross_rent": "Gross rent"
-}, axis=1, inplace=True)
-```
+In this section, the features related to income and gross rent cost are analyzed focusing on professional householders.
 
 What is the average national of the income for a bachelor and master graduates?
 
 The next pivot table will help to answer that question
 
-
-```python
-average_income_pt = pd.pivot_table(
-    data=earning_df,
-    values=["Bachelor earning", "Master or above earning"],
-    index="Year")
-```
-
-
-```python
-average_income_pt
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2325,30 +1448,9 @@ average_income_pt
 </table>
 </div>
 
-
-
 From the previous results, the average of the median income had been increased yearly from 2015 to 2019 for both professional groups. However, from 2019 to 2020 their income decreased by 5% approx.
 
-
-```python
-fig, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-_ = sns.lineplot(x="Year",
-                 hue="variable",
-                 y="value",
-                 data=pd.melt(average_income_pt.reset_index(), ['Year']),
-                 markers=['o', 's'],
-                 markersize=10,
-                 style="variable")
-ax.set(xlabel="Year", ylabel="Median income ($)")
-ax.legend(title='Group', loc='best')
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_86_0.png)
-    
-
+![png](images/EDA_homeless_pop_86_0.png)
 
 What it would be maximum the rent cost a graduate professional could afford?
 
@@ -2356,56 +1458,7 @@ For this estimation, let's assume a professional will have to pay 37% in taxes a
 
 $$ \text{max rent cost} = \text{salary}\cdot \left(\frac{100 - \text{tax perc}}{12 \cdot \text{ratio} \cdot 100}\right) $$
 
-
-```python
-def max_rent(value, tax_perc=37, ratio=3):
-    """
-    Calculation of the maximum rent cost based on the income
-    Args:
-        value (_type_): salary yearly
-        tax_perc (int, optional): _description_. Defaults to 37.
-        ratio (int, optional): _description_. Defaults to 3.
-
-    Returns:
-        _type_: maximum rent cost 
-    """
-    return np.round(value * (100 - tax_perc) / 12 / ratio / 100, 2)
-```
-
-
-```python
-# Some calculations
-tax_percentage = 37
-ratio_rent_income = 3
-earning_df["Perc diff"] = (((earning_df["Master or above earning"] -
-                             earning_df["Bachelor earning"]) / earning_df["Bachelor earning"] * 100).round(2))
-
-earning_df["Max rent Bachelor"] = earning_df["Bachelor earning"].apply(lambda x: max_rent(x,tax_percentage, ratio_rent_income))
-earning_df["Max rent Master"] = earning_df["Master or above earning"].apply(lambda x: max_rent(x,tax_percentage, ratio_rent_income))
-```
-
-
-```python
-earning_df.head(10)
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2535,36 +1588,9 @@ earning_df.head(10)
 </table>
 </div>
 
-
-
 **How much a master professional earns over a bachelor one?**
 
-
-```python
-pd.pivot_table(data=earning_df,
-               index="State name",
-               columns="Year",
-               values="Perc diff",
-               margins=True).round(2)
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2683,38 +1709,11 @@ pd.pivot_table(data=earning_df,
 </table>
 </div>
 
-
-
 A Master's degree holder earns an average of 30% more than a bachelor graduate in the last 6 years. In California, a master graduate earns 40% over a bachelor professional, while in Georgia is only 25% more.
 
 **How much the gross rent has change over time?**
 
-
-```python
-pd.pivot_table(data=earning_df,
-               index="State name",
-               columns="Year",
-               values="Gross rent",
-               margins=True).round(2)
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -2833,42 +1832,13 @@ pd.pivot_table(data=earning_df,
 </table>
 </div>
 
-
-
 The average gross rent cost in the selected states had had a constant increase between 2015 to 2019. Nevertheless, in 2020 showed a slightly decrease.
 
+![png](images/EDA_homeless_pop_97_0.png)
 
-```python
-g = sns.FacetGrid(earning_df, 
-                  col='State name', 
-                  col_wrap=4, height=8, aspect=.75, ylim=(500, 1800))
-g = g.map(plt.plot, 'Year', 'Max rent Master', label="Master", marker='o')
-g = g.map(plt.plot, 'Year', 'Max rent Bachelor', color='gray', label="Bachelor")
-g = g.map(plt.plot, 'Year', 'Gross rent', color='orange', label="Rent")
-g = g.map(plt.fill_between, 'Year', 'Max rent Master', alpha=0.2)
-g = g.map(plt.fill_between, 'Year', 'Max rent Bachelor', color='lightgray', alpha=0.5)
-g = g.set_ylabels("USD dollars", fontsize=14)
-g = g.set_xlabels("Year", fontsize=14)
-g = g.set_titles("{col_name}", size=14)
-g = g.set_xticklabels(fontsize=12)
+This figure is fascinating. It is shown that the median income for a bachelor's graduate is not enough to rent a house in none of the selected US-States. Florida is the only state where a bachelor's graduate roughly can afford the median gross rental cost.
 
-g.tight_layout()
-g.add_legend(fontsize=16)
-plt.subplots_adjust(top=0.92)
-g = g.fig.suptitle('Comparison maximum rent cost a graduate profesional can afford and gross rent', fontsize=18)
-# Show the graph
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_97_0.png)
-    
-
-
-This figure is fascinating. It is shown that the median income for a bachelor's graduate is not enough to rent a house in none of the selected US-States. Florida is the only state where a bachelor's graduate roughly can afford the median gross rental cost. 
-
-In contrast, a master's graduate should be able to afford the median gross rent in all the states except Colorado and Florida. 
+In contrast, a master's graduate should be able to afford the median gross rent in all the states except Colorado and Florida.
 
 Another thing is the gross rent cost has been increasing steadily in all States. California shows a 25%-increment percentage around %25, which is the higher observed among the selected States. On the other hand, the gross rent cost showed a slight decrease between 2019 and 2020
 
@@ -2876,57 +1846,7 @@ What is the maximum rent increase a master graduate could be tolerated?
 
 Assuming the rent cost and median earning for master graduated kept constant. What it would be the maximum rental cost increase that can be afford for that population sector?
 
-
-```python
-def able_to_pay(gross_rent, max_rent):
-    if max_rent >= gross_rent:
-        max_increase = round((max_rent/gross_rent - 1) * 100, 2)
-    else:
-        max_increase = 0
-    return max_increase
-```
-
-
-```python
-subdata = earning_df.copy()
-subdata.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-subdata2020 = subdata.loc[(2020, slice(None))]
-subdata2020.reset_index(inplace=True)
-subdata2020 = subdata2020.drop(["Bachelor earning", "Perc diff", "Max rent Bachelor"], axis=1)
-```
-
-
-```python
-subdata2020["Max increase Master"] = subdata2020[["Gross rent", "Max rent Master"]].apply(lambda x:able_to_pay(*x), axis=1)
-subdata2020.sort_values(by="Max increase Master", ascending=False, inplace=True)
-```
-
-
-```python
-subdata2020
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3007,62 +1927,7 @@ subdata2020
 </table>
 </div>
 
-
-
-
-```python
-# How many housing units for rent are available?
-query = (
-"    SELECT upop.year, " # Extract data from census.gov and add info from ctedata
-"           upop.name_state, "
-"           sr.abbreviation, "
-"           upop.total_vacant_housing_units, "
-"           upop.total_vacant_housing_units_for_seasonal, "
-"           upop.total_vacant_housing_units_for_rent, "
-"           upop.total_vacant_housing_units_for_rent - "
-"           upop.vacant_housing_units_rented_not_occupied AS units_for_rent_available "
-"    FROM us_population as upop "
-"    LEFT JOIN state_region AS sr ON upop.id_state = sr.state "
-)
-
-units_for_rent_df = cheroku.make_query(query, "c1_capstone", credential_file)
-```
-
-
-```python
-short_unit_for_rent_df = units_for_rent_df[(units_for_rent_df["name_state"].isin(subdata2020["State name"].values)) & (units_for_rent_df["year"] == 2020)][["name_state" , "units_for_rent_available"]]
-```
-
-
-```python
-subdata2020 = pd.merge(subdata2020, short_unit_for_rent_df, how='left',
-                       left_on=["State name"], right_on=["name_state"])
-subdata2020 = subdata2020.drop("name_state", axis=1)
-subdata2020.rename({"units_for_rent_available": "Units for rent available"}, axis=1, inplace=True)
-```
-
-
-```python
-subdata2020
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3152,42 +2017,7 @@ subdata2020
 </table>
 </div>
 
-
-
-
-```python
-fig, ax = plt.subplots(figsize=(20/2.54, 16/2.54))
-ax1 = ax.twinx()
-g = sns.barplot(y="Max increase Master", 
-                x="State name", 
-                data=subdata2020,
-                palette="Blues_r", ax=ax)
-g.set_ylabel("Maximum increase (%)", fontsize=14)
-g.set_xlabel("State", fontsize=14)
-
-g.tick_params(axis='both', which='major', labelsize=15)
-g.tick_params(axis="x", labelrotation=45)
-
-p = sns.pointplot(y="Units for rent available", 
-                  x="State name", 
-                  data=subdata2020,
-                  color='red',
-                  markers='o',
-                  ax=ax1
-)
-p.grid(b=False)
-
-p.set_ylabel("Number of units available for rent", fontsize=14)
-p.tick_params(axis='y', which='major', labelsize=15)
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_109_0.png)
-    
-
+![png](images/EDA_homeless_pop_109_0.png)
 
 ## Distribution of renter housing units by income salary
 
@@ -3198,74 +2028,9 @@ Based on our last result, let's focus on Georgia, Massachusetts, Washington, New
 list_states = ['Georgia', 'Massachusetts', 'Washington', 'New York', 'California']
 
 
-```python
-query = ("SELECT * FROM rent_occupied_by_income "
-         " WHERE name_state IN ('" + "','".join(list_states)  + "')")
-housing_df = cheroku.make_query(query, "c1_capstone", credential_file)
-```
+![png](images/EDA_homeless_pop_116_0.png)
 
-
-```python
-housing_df = housing_df.drop('id', axis=1)
-```
-
-
-```python
-housing_df.rename({
-    'year' : 'Year', 
-    'name_state': 'State name', 
-    'less_than_r5000': 'Less than $5000',
-    'r5000_to_r9999' : '$5000-$9999',
-    'r10000_to_r14999' : '$10000-$14999', 
-    'r15000_to_r19999' :'$15000-$19999', 
-    'r20000_to_r24999' : '$20000-$24999',
-    'r25000_to_r34999' : '$25000-$34999', 
-    'r35000_to_r49999' : '$35000-$49999', 
-    'r50000_to_r74999' : '$50000-$74999',
-    'r75000_to_r99999' : '$75000-$99999', 
-    'r100000_to_r149999' : '$100000-$149999', 
-    'r150000_or_more' : '$150000 or more'
-}, axis=1, inplace=True)
-```
-
-
-```python
-housing_df = housing_df.sort_values(by=["Year", "State name"])
-housing_df.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-# Create the figure
-_, axes = plt.subplots(3, 2, figsize=(30/2.54, 32/2.54), sharex='col')
-
-for state, ax in zip(list_states, axes.ravel()):
-    # The data has to be reformated for the barplot seaborn
-    subdata = housing_df.loc(axis=0)[:, state]
-    subdata.reset_index(inplace=True)
-    subdata = subdata.drop(["id_state", "State name"], axis=1)
-    subdata = subdata.T
-    subdata.columns = subdata.iloc[0]
-    subdata = subdata.drop("Year", axis=0)
-
-    for year in years:
-        g = sns.barplot(x=subdata.index, y=subdata[year].values,
-                        palette = "Blues",
-                        ax=ax, alpha=0.35)
-        g.set_title(state)
-        g.tick_params(labelrotation=45, axis='x')
-        g.ticklabel_format(style='plain', axis='y')
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_116_0.png)
-    
-
-
-The average income for a master's graduate is USD75,000 which belongs to range where there are more renter housing units available in the selected states. Below the income range USD 50,000 to USD 74,999 most of the available housing units are rented by people who earn between USD 25,000 to USD50,000. 
+The average income for a master's graduate is USD75,000 which belongs to range where there are more renter housing units available in the selected states. Below the income range USD 50,000 to USD 74,999 most of the available housing units are rented by people who earn between USD 25,000 to USD50,000.
 
 Therefore, it seems more likely in case of the rent cost increase more than maximum allowed that group of people could find cheaper places.
 
@@ -3276,40 +2041,7 @@ Finally, in California, New York, and Massachusetts, the proportion of rented ho
 
 Let's check is the number of houses rented by people who earn less money than a master's graduate has increased since 2019
 
-
-```python
-housing_df.reset_index(inplace=True)
-```
-
-
-```python
-subdata = housing_df[(housing_df["Year"] == 2019) | (housing_df["Year"] == 2020)].iloc[:, [0, 1, 7, 8, 9]]
-pd.pivot_table(data=subdata,
-               index="State name",
-               columns="Year")
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr>
@@ -3414,82 +2146,13 @@ pd.pivot_table(data=subdata,
 </table>
 </div>
 
-
-
 The Pivot table shows that the number of rented units increased for the USD 25,000-350000 income range, while for the USD 50,000 to 75,000 range decreased.
 
 At this point, it seems there will have cheaper houses available for renting
 
 ## Distribution of renter housing units by rent cost
 
-
-```python
-query = ("SELECT * FROM gross_rent "
-         " WHERE name_state IN ('" + "','".join(list_states)  + "')")
-```
-
-
-```python
-gross_rent_df = cheroku.make_query(query,
-                                   "c1_capstone",
-                                   credential_file)
-```
-
-
-```python
-gross_rent_df = gross_rent_df.drop("id", axis=1)
-gross_rent_df.rename({
-    'year': 'Year',
-    'name_state': 'State name',
-    'less_than_100': 'Less than 100',
-    'r100_to_r149' : '$100-$149',
-    'r150_to_r199' : '$150-$199',
-    'r200_to_r249' : '$200-$249',
-    'r250_to_r299' : '$250-$299',
-    'r300_to_r349' : '$300-$349',
-    'r350_to_r399' : '$350-$399',
-    'r400_to_r449' : '$400-$449',
-    'r450_to_r499' : '$450-$449',
-    'r500_to_r549' : '$500-$549',
-    'r550_to_r599' : '$550-$599',
-    'r600_to_r649' : '$600-$649',
-    'r650_to_r699' : '$650-$699',
-    'r700_to_r749' : '$700-$749',
-    'r750_to_r799' : '$750-$799',
-    'r800_to_r899' : '$800-$899',
-    'r900_to_r999' : '$900-$999',
-    'r1000_to_r1249' : '$1000-$1249',
-    'r1250_to_r1499' : '$1250-$1499',
-    'r1500_to_r1999' : '$1500-$1999',
-    'r2000_to_r2499' : '$2000-$2499',
-    'r2500_to_r2999' : '$2500-$2999',
-    'r3000_to_r3499' : '$3000-$3499',
-    'r3500_to_more' : '$3500 or more'
-}, axis='columns', inplace=True)
-```
-
-
-```python
-gross_rent_df.head()
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -3643,36 +2306,7 @@ gross_rent_df.head()
 <p>5 rows × 27 columns</p>
 </div>
 
-
-
-
-```python
-gross_rent_df = gross_rent_df.sort_values(by=["Year", "State name"])
-gross_rent_df.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-gross_rent_df
-```
-
-
-
-
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -4890,105 +3524,30 @@ gross_rent_df
 <p>48 rows × 25 columns</p>
 </div>
 
-
-
 ### Visualization of distribution of renter housing units
 
 A Barplot is requiered a categorical variable on the x-axis, in our case, gross rent prices range. On the y-axis, a numerical value is needed which it will be the number of housing units.
 
 The next figure shows a set of 6 barplots (one for each year) for each state.
 
-
-```python
-# Create the figure
-_, axes = plt.subplots(3, 2, figsize=(30/2.54, 32/2.54), sharex='col')
-
-for state, ax in zip(list_states, axes.ravel()):
-    # The data has to be reformated for the barplot seaborn
-    subdata = gross_rent_df.loc(axis=0)[:, state]
-    subdata.reset_index(inplace=True)
-    subdata = subdata.drop(["id_state", "State name"], axis=1)
-    subdata = subdata.T
-    subdata.columns = subdata.iloc[0]
-    subdata = subdata.drop("Year", axis=0)
-    
-    for year in years:
-        g = sns.barplot(x=subdata.index, y=subdata[year].values,
-                        palette = "Blues",
-                        ax=ax, alpha=0.35)
-        g.set_title(state)
-        g.tick_params(labelrotation=45, axis='x', labelsize=10)
-        g.ticklabel_format(style='plain', axis='y')
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_130_0.png)
-    
-
+![png](images/EDA_homeless_pop_130_0.png)
 
 Based on the picture, the most of the renter housing units are in the range of USD 750 to $2500. However, it is difficult to observe if the number of units has changed over time.
 
 ### Cumulative Distribution of renter housing units
+
 Let's plot a cumulative distribution by state by year
 
 
-```python
-# Back to the original format of the data
-gross_rent_df.reset_index(inplace=True)
-
-# Remove id_state because we don't need it
-gross_rent_cum_df = gross_rent_df.drop("id_state", axis=1)
-
-# Calculation of the portion of each rent cost range
-df1 = gross_rent_cum_df.iloc[:,2:].apply(lambda x: x/x.sum()*100, axis=1)
-
-# Calculation of teh cumulative sum
-df1 = df1.apply(lambda x: np.cumsum(x), axis=1)
-```
-
-
-```python
-df1 = pd.concat([gross_rent_df[["Year","State name"]], df1], axis=1)
-df1.set_index(["Year", "State name"], inplace=True)
-```
-
-
-```python
-_, axes = plt.subplots(3, 2, figsize=(30/2.54, 32/2.54))
-
-for state, ax in zip(list_states, axes.ravel()):
-    for i, year in enumerate(years):
-        g = sns.lineplot(data=df1.loc[(year, state)][11:-3],
-                         palette='colorblind', ax=ax, label=year,
-                         marker=all_shapes[i],
-                         markersize=8)
-        g.set_title(state)
-        g.set_ylabel("CDF", fontsize=18)
-        g.tick_params(axis='y', labelsize=12)
-        g.tick_params(labelrotation=45, axis='x', labelsize=12)
-        g.ticklabel_format(style='plain', axis='y')
-        g.legend(fontsize='large')
-
-plt.tight_layout()
-plt.show()
-```
-
-
-    
-![png](EDA_homeless_pop_files/EDA_homeless_pop_134_0.png)
-    
-
+![png](images/EDA_homeless_pop_134_0.png)
 
 There are several takeaways from there.
+
 1. In the universe of the 10 top states where there has been a significant change in the homeless population, there are more housing units with rent costs between $750 to $2000.
 2. California has the highest number of housing units for rent in the USA.
 3. The distribution of housing units for rent is similar in California and New York.  In both states, the homeless population has increased over the last three years.
 4. The total of units has decreased since 2015 in all states. However, in 2018-2020 (an increase in the homeless population), rental units have been almost the same in all states.
 5. Interestingly, Florida's distribution of renter housing units is similar to California. Still, in Florida, the homeless population has decreased compared to California.
-
 
 # Dashboard
 
