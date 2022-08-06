@@ -8,6 +8,8 @@ Therefore, I decided to come back to training. I was accepted in the Data Analyt
 
 In this repository, I share the journey of my capstone project, which required getting a certificate in Data Analytics.
 
+In summary, the project title was: _Could rising gross rental costs drive the US graduate population homeless?_ and the main goal was to create a data-driven visualization tool that would help to answer that business question.
+
 - Codes: [Python](https://github.com/aliglara/capstone-c1-DA/tree/main/codes)
 - Reports: [Final report](https://github.com/aliglara/capstone-c1-DA/blob/main/deliverables/006_report.md)
 - Vizs: [Tableau viz](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
