@@ -1,7 +1,14 @@
 # Final Project for Data Analyst Training by Correlation One
 
-As part of my job-insertion plan in the US workforce, I identified the fundamental skillset I am able to apply in different areas.
+As part of my job-insertion plan in the US workforce, I identified the fundamental skillset I can apply in different areas.
   
-One of the things I enjoy the most is finding patterns in data using several tools, from visualization to modeling. However, being an alien in the country, nobody knows what you capable of doing are, and the value you can bring to a company. Additionally, I found that it is crucial to understand the workflow better.
+One of the things I enjoy the most is finding patterns in data using several tools, from visualization to modeling. However, being an alien in the country, lack of networking, and having no clue about the job expectations in the data analytics field, I found that it is crucial to understand the workflow better.
 
-Therefore, I made the decision to back to training. In this repository, I share the journey of my last project, which required getting a certificate in Data Analytics given by [Correlation One](https://www.correlation-one.com/)
+Therefore, I decided to come back to training. I was accepted in the Data Analytics course given by [Correlation One](https://www.correlation-one.com/), which besides allowed me to brush up on using technical tools like Advanced Excel techniques, Python, SQL, and Tableau. Moreover, I've got used to working remotely with different people and learning about job search preparation.
+
+In this repository, I share the journey of my capstone project, which required getting a certificate in Data Analytics.
+
+Codes: [https://github.com/aliglara/capstone-c1-DA/tree/main/codes](https://github.com/aliglara/capstone-c1-DA/tree/main/codes)
+Reports: [https://github.com/aliglara/capstone-c1-DA/tree/main/deliverables](https://github.com/aliglara/capstone-c1-DA/tree/main/deliverables)
+Vizs: [Tableau viz](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
+Viz: [Heroku](https://dashboard.heroku.com/apps/c1-capstone)
