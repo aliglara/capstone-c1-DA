@@ -121,12 +121,12 @@ The selected variables from the Census.gov (see table below) were pulled out via
 
 Second, The estimate of homelessness population by state was pulled out from the HUD Exchange website. The information was downloaded in an Excel file.
 
-| File Name | 2007-2021-PIT-Counts-by-State (2007 - 2020) |
-|-----------|---------------------------------------------|
-| Name      | PIT and HIC Data Since 2007                 |
-| Size      |                                             |
-|           |                                             |
-|           |                                             |
+| File name | 2007-2021-PIT-Counts-by-State (2007 - 2020) |
+|-|-|
+| Name | PIT and HIC Data Since 2007 |
+| Size | 1.1 MB |
+| Source | [https://www.hudexchange.info](https://www.hudexchange.info) |
+| Direct link | [https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007](https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007) |
 
 **The dataset was stored on my Heroku server to brush up on SQL coding. However, the original csv files are available in the GitHub repository. Click on -> ([link](https://github.com/aliglara/capstone-c1-DA/tree/main/data))**
 
