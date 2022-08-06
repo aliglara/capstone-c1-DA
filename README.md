@@ -6,7 +6,7 @@ One of the things I enjoy the most is finding patterns in data using several too
 
 Therefore, I decided to come back to training. I was accepted in the Data Analytics course given by [Correlation One](https://www.correlation-one.com/), which besides allowed me to brush up on using technical tools like Advanced Excel techniques, Python, SQL, and Tableau. Moreover, I've got used to working remotely with different people and learning about job search preparation.
 
-In this repository, I share the journey of my capstone project, which required getting a certificate in Data Analytics.
+In this repository, I share the journey of working on my capstone project, which required getting a certificate in Data Analytics.
 
 In summary, the project title was: _Could rising gross rental costs drive the US graduate population homeless?_ and the main goal was to create a data-driven visualization tool that would help to answer that business question.
 
