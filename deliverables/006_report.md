@@ -137,6 +137,7 @@ The EDA was split in the following sections:
 3. Income and rent expenses by bachelor's professional or above
 
 ## EDA Results
+
 ### US population and homeless population information
 
 **How the US population has changed from 2015 to 2020?**
@@ -155,7 +156,6 @@ $$
 \end{aligned}
 $$
 
-
 ![png](images/EDA_homeless_pop_19_0.png)
 
 Takeaways:
@@ -165,7 +165,7 @@ Takeaways:
 - The US population registered a 0.5%-decrease between 2019 and 2020
 - The homeless population is 0.16% of the total population from 2015 to 2020
 
-** How the homeless population is distributed on the US territories?**
+**How the homeless population is distributed on the US territories?**
 
 ![png](images/EDA_homeless_pop_23_0.png)
 
@@ -198,7 +198,7 @@ In order to show the variation over time, let's create a lineplot.
 
 ![png](images/EDA_homeless_pop_38_0.png)
 
-Based on this figure, California (CA) is the state where the homelessness population has increased the most from 2018 to 2020. The New York state (NY) has shown a continuous  growing in the homeless population as well. In contrast, Florida (FL) has shown a continuous decrease since 2015. 
+Based on this figure, California (CA) is the state where the homelessness population has increased the most from 2018 to 2020. The New York state (NY) has shown a continuous  growing in the homeless population as well. In contrast, Florida (FL) has shown a continuous decrease since 2015.
 
 Due the magnitud order, the homeless population for the rest of the states has been shrunk to the plot bottom. Because of that, let's split the graph
 
@@ -215,8 +215,6 @@ The main project goal is to analyze recent US population data to answer the ques
 
 Because of that, in the following section, a comparison between the US 25-year-and-over population is shown. A pivot table was creataed where the 25-year and over population is summed by year, and the results are showed in the following plots
 
-
-
 ![png](images/EDA_homeless_pop_46_0.png)
 
 From the left plot, the 25-year population who have earned a formal educational level increased by around 4% from 2015 to 2019. However, in 2020, an almost 1% decrease is shown.
@@ -231,14 +229,13 @@ In general, bachelor's graduate population represent a 20% of the population bas
 
 In order to visualize the relative change between the homeless population and the total population. Let's create the following ratio
 
-
 $$
+\begin{align}
 \text{ratio} = \frac{\text{Homeless population}}{\text{Total population}} \cdot 100
+\end{align}
 $$
-
 
 ![png](images/EDA_homeless_pop_57_0.png)
-
 
 From the graph, New York is the state with the highest proportion of people experiencing  homelessness. Along New York, the states with higher ratio homeless/population are: California, Oregon, Washington and Massachusetts.
 
@@ -264,7 +261,6 @@ Therefore, the total of units by state represents the total number of renter hou
 
 The information taken from teh census.gov website was aggregated in a pivot Table. For there the percentage of occupied houses by Bachelors or above was caculated. The results are shown in the next figure.
 
-
 ![png](images/EDA_homeless_pop_77_0.png)
 
 From there, we can say:
@@ -284,11 +280,12 @@ The average of the median income had been increased yearly from 2015 to 2019 for
 Based on the obtained results, a Master's degree holder earns an average of 30% higher than a bachelor graduate. In California, a master graduate earns 40% over a bachelor professional, while in Georgia is only 25% more.
 
 For estimate what is the maximum rent cost that a bachelor or master graduate could afford, let's assume a deduction of 37% in taxes and the gross monthly income has to be twice higher than the rent cost.
-$$
-\text{max rent cost} = \text{salary}\cdot \left(\frac{100 - \text{tax perc}}{12 \cdot \text{ratio} \cdot 100}\right) 
-$$
 
-
+$$
+\begin{align}
+\text{max rent cost} = \text{salary}\cdot \left(\frac{100 - \text{tax perc}}{12 \cdot \text{ratio} \cdot 100}\right)
+\end{align}
+$$
 
 ![png](images/EDA_homeless_pop_97_0.png)
 
@@ -300,8 +297,7 @@ In contrast, a master's graduate should be able to afford the median gross rent 
 
 Another thing is the gross rent cost has been increasing steadily in all States. California shows a 25%-increment percentage around %25, which is the higher observed among the selected States. On the other hand, the gross rent cost showed a slight decrease between 2019 and 2020.
 
-Assuming the rent cost and median earning for master graduated kept constant in 2020. What it would be the maximum rental cost increase that master's graduate can afford? 
-
+Assuming the rent cost and median earning for master graduated kept constant in 2020. What it would be the maximum rental cost increase that master's graduate can afford?
 
 ![png](images/EDA_homeless_pop_109_0.png)
 
@@ -312,7 +308,6 @@ In the prvious figure, bars represent the maximum percentage of gross rent cost 
 Assuming the rent cost increases higher than the maximum a master graduate can afford, are there cheaper rental options?
 
 Based on our last result, let's focus on Georgia, Massachusetts, Washington, New York and California
-
 
 ![png](images/EDA_homeless_pop_116_0.png)
 
@@ -326,7 +321,6 @@ Interestingly, the distribution of rented units for household income of USD 35,0
 Finally, in California, New York, and Massachusetts, the proportion of rented housing units with an income of USD 150,000 or above is significantly higher than in the rest of the seleted US States.
 
 Let's check is the number of houses rented by people who earn less money than a master's graduate has increased since 2019
-
 
 ### Visualization of distribution of renter housing units
 
@@ -342,7 +336,6 @@ Based on the picture, the most of the renter housing units are in the range of U
 
 Let's plot a cumulative distribution by state by year
 
-
 ![png](images/EDA_homeless_pop_134_0.png)
 
 There are several takeaways from there.
@@ -353,6 +346,6 @@ There are several takeaways from there.
 4. The total of units has decreased since 2015 in all states. However, in 2018-2020 (an increase in the homeless population), rental units have been almost the same in all states.
 5. Interestingly, Florida's distribution of renter housing units is similar to California. Still, in Florida, the homeless population has decreased compared to California.
 
-# Dashboard
+## Dashboard
 
-# Conclusions
+## Conclusions
