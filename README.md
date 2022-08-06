@@ -9,6 +9,6 @@ Therefore, I decided to come back to training. I was accepted in the Data Analyt
 In this repository, I share the journey of my capstone project, which required getting a certificate in Data Analytics.
 
 - Codes: [Python](https://github.com/aliglara/capstone-c1-DA/tree/main/codes)
-- Reports: [Deliverable files - Markdown](https://github.com/aliglara/capstone-c1-DA/tree/main/deliverables)
+- Reports: [Final report](https://github.com/aliglara/capstone-c1-DA/blob/main/deliverables/006_report.md)
 - Vizs: [Tableau viz](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
 - Databases: [Heroku - PostgreSQL](https://dashboard.heroku.com/apps/c1-capstone)
