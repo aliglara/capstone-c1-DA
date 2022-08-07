@@ -83,41 +83,6 @@ The selected variables from the Census.gov (see table below) were pulled out via
 | B25013_010E | Renter-occupied units - Some college degree | int |
 | B25013_011E | Renter-occupied units - Bachelor's degree or higher | int |
 | B25064_001E | Median gross rent | int |
-| B25063_003E | Renter-occupied housing units with a rent Less than $100 | int |
-| B25063_004E | Renter-occupied housing units with a rent $100 to $149 | int |
-| B25063_005E | Renter-occupied housing units with a rent $150 to $199 | int |
-| B25063_006E | Renter-occupied housing units with a rent $200 to $249 | int |
-| B25063_007E | Renter-occupied housing units with a rent $250 to $299 | int |
-| B25063_008E | Renter-occupied housing units with a rent $300 to $349 | int |
-| B25063_009E | Renter-occupied housing units with a rent $350 to $399 | int |
-| B25063_010E | Renter-occupied housing units with a rent $400 to $449 | int |
-| B25063_011E | Renter-occupied housing units with a rent $450 to $499 | int |
-| B25063_012E | Renter-occupied housing units with a rent $500 to $549 | int |
-| B25063_013E | Renter-occupied housing units with a rent $550 to $599 | int |
-| B25063_014E | Renter-occupied housing units with a rent $600 to $649 | int |
-| B25063_015E | Renter-occupied housing units with a rent $650 to $699 | int |
-| B25063_016E | Renter-occupied housing units with a rent $700 to $749 | int |
-| B25063_017E | Renter-occupied housing units with a rent $750 to $799 | int |
-| B25063_018E | Renter-occupied housing units with a rent $800 to $899 | int |
-| B25063_019E | Renter-occupied housing units with a rent $900 to $999 | int |
-| B25063_020E | Renter-occupied housing units with a rent $1000 to $1249 | int |
-| B25063_021E | Renter-occupied housing units with a rent $1250 to $1499 | int |
-| B25063_022E | Renter-occupied housing units with a rent $1500 to $1999 | int |
-| B25063_023E | Renter-occupied housing units with a rent $2000 to $2499 | int |
-| B25063_024E | Renter-occupied housing units with a rent $2500 to $2999 | int |
-| B25063_025E | Renter-occupied housing units with a rent $3000 to $3499 | int |
-| B25063_026E | Renter-occupied housing units with a rent $3500 or more | int |
-| B25118_015E | Renter-occupied housing units with an income less than $5000 | int |
-| B25118_016E | Renter-occupied housing units with an income $5000 to $9999 | int |
-| B25118_017E | Renter-occupied housing units with an income $10000 to $14999 | int |
-| B25118_018E | Renter-occupied housing units with an income $15000 to $19999 | int |
-| B25118_019E | Renter-occupied housing units with an income $20000 to $24999 | int |
-| B25118_020E | Renter-occupied housing units with an income $25000 to $34999 | int |
-| B25118_021E | Renter-occupied housing units with an income $35000 to $49999 | int |
-| B25118_022E | Renter-occupied housing units with an income $50000 to $74999 | int |
-| B25118_023E | Renter-occupied housing units with an income $75000 to $99999 | int |
-| B25118_024E | Renter-occupied housing units with an income $100000 to $149999 | int |
-| B25118_025E | Renter-occupied housing units with an income $150000 or more | int |
 
 Second, The estimate of homelessness population by state was pulled out from the HUD Exchange website. The information was downloaded in an Excel file.
 
