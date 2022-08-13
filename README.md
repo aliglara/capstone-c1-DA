@@ -11,6 +11,6 @@ In this repository, I share the journey of working on my capstone project, which
 In summary, the project title was: _Could rising gross rental costs drive the US graduate population homeless?_ and the main goal was to create a data-driven visualization tool that would help to answer that business question.
 
 - Codes: [Python](https://github.com/aliglara/capstone-c1-DA/tree/main/codes)
-- Reports: [Final report](https://github.com/aliglara/capstone-c1-DA/blob/main/deliverables/006_report.md)
-- Vizs: [Tableau viz](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
+- Reports: [Final report (WIP)](https://github.com/aliglara/capstone-c1-DA/blob/main/deliverables/006_report.md)
+- Vizs: [Tableau viz (WIP)](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
 - Databases: [Heroku - PostgreSQL](https://dashboard.heroku.com/apps/c1-capstone)
