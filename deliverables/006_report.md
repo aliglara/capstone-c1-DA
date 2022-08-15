@@ -20,13 +20,17 @@ Finally, [Ventriglio et al.](https://www.google.com/books/edition/Homelessness_a
 
 ### Potential Audience
 
-The general public might be interested in having a tool that can show how changes in rent costs impact the level of homelessness in the USA.
+The public might be interested in having a tool that can show how changes in rent costs impact the level of homelessness in the USA.
 
 Despite that, several government agencies should be another potential audience because they can develop creative strategies to mitigate the problem. Solutions can cover programs such as temporary housing, career training, financial management, and child care services.
+
+----
 
 ## Scope
 
 The goal of this project was to create a data-driven tool to visualize whether there is a link between rising rent cost and homelessness among people who possesses a bachelor's degree or above in the United States.
+
+----
 
 ## Data Analysis and Manipulation
 
@@ -101,6 +105,8 @@ The EDA was split in the following sections:
 2. Gross rent increase
 3. Income and rent expenses by bachelor's professional or above
 
+----
+
 ## EDA Results
 
 ### US population and homeless population information
@@ -123,14 +129,14 @@ $$
 
 ![png](images/EDA_homeless_pop_19_0.png)
 
-Takeaways:
+> Takeaways:
+> 
+> - Since 2017, the total US-homeless population has increased an average of 1% yearly
+> - Based on the Census.gov database, the highest US homeless population was registered in 2020
+> - The US population registered a 0.5% decrease between 2019 and 2020
+> - The homeless population is 0.16% of the total population from 2015 to 2020
 
-- Since 2018, the total US-homeless population has increased an average of 2.5% yearly
-- Based on the Census.gov database, the highest US homeless population was registered in 2020
-- The US population registered a 0.5%-decrease between 2019 and 2020
-- The homeless population is 0.16% of the total population from 2015 to 2020
-
-**How the homeless population is distributed on the US territories?**
+**How the homeless population is distributed in the US states?**
 
 ![png](images/EDA_homeless_pop_23_0.png)
 
@@ -153,23 +159,27 @@ Between 2015 and 2020, these are the 13 states that has been reported in the top
 | Massachusetts | Ohio     |
 | Pennsylvania  |          |
 
-Next figure shows in which US regions those states belong to
+**How the homeless population is distributed in the US regions?**
 
-![png](images/EDA_homeless_pop_34_0.png "png")
+![png](images/EDA_homeless_pop_34_0.png)
 
- It can be shown the US-region where there are more people experiencing homelessness is the West region.
+ It can be shown the US-region where there are more people experiencing homelessness is the **West** region.
 
 In order to show the variation over time, let's create a lineplot.
 
 ![png](images/EDA_homeless_pop_38_0.png)
 
-Based on this figure, California (CA) is the state where the homelessness population has increased the most from 2018 to 2020. The New York state (NY) has shown a continuous  growing in the homeless population as well. In contrast, Florida (FL) has shown a continuous decrease since 2015.
+Based on this figure, California (CA) is the state where homeless population has 
+increased the most from 2018 to 2020. The New York state (NY) has shown a 
+continuous  growing in the homeless population as well. 
+In contrast, Florida (FL) has shown a continuous decrease since 2015.
 
-Due the magnitud order, the homeless population for the rest of the states has been shrunk to the plot bottom. Because of that, let's split the graph
+Due to the magnitude order, homeless population for the rest of the states 
+has been shrunk to the plot bottom. Because of that, let's split the graph
 
 ![png](images/EDA_homeless_pop_41_0.png)
 
-On the previous graph, it can be observed that the homeless population has increased considerably in Texas and Washington. In contrast, Pennsylvania and  Illinois show that growth slowed down noticeably.
+> On the previous graph, it can be observed that the homeless population has increased considerably in Texas and Washington. In contrast, Pennsylvania and  Illinois show that growth slowed down noticeably.
 An interesting case is Georgia state, where homelessness has decreased dramatically. Finally, Colorado state shows a steady level, while Ohio appeared on the map in 2019 with a 3%-increase in the homeless population.
 
 ### 25-year and over US population

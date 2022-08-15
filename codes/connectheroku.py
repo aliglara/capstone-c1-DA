@@ -18,9 +18,12 @@ def connect_database(project, filepath):
 
 
 def make_query(query_string, project, filepath):
+    # open credential file and read api key
     f = open(filepath, "r")
     credentials = json.load(f)
     f.close()
+
+    # make the connection to Heroku server
     conn = psycopg2.connect(
         host=credentials['databases']["heroku"][project]['host'],
         user=credentials['databases']["heroku"][project]['user'],
@@ -28,10 +31,13 @@ def make_query(query_string, project, filepath):
         database=credentials['databases']["heroku"][project]['database'],
         port=credentials['databases']["heroku"][project]['port']
     )
-    cursorobject = conn.cursor()
-    cursorobject.execute(query_string)
-    results = cursorobject.fetchall()
-    column_names = [i[0] for i in cursorobject.description]
-    cursorobject.close()
-    df = pd.DataFrame(results, columns=column_names)
-    return df
+    cursor_object = conn.cursor()
+
+    # query the info requested
+    cursor_object.execute(query_string)
+    results = cursor_object.fetchall()
+    column_names = [i[0] for i in cursor_object.description]
+    cursor_object.close()
+
+    # return info as pandas dataframe
+    return pd.DataFrame(results, columns=column_names)
