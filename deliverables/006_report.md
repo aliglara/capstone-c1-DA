@@ -276,7 +276,7 @@ Assuming the rent cost and median earning for master graduated kept constant in 
 
 ![png](images/EDA_homeless_pop_109_0.png)
 
-In the prvious figure, bars represent the maximum percentage of gross rent cost that can be increased before master’s graduates or above can’t afford it from 2020. The red line represented the number of housing units for rent. For example, in Georgia, the gross rent can be raised to 16%, but there are only 75,000 units available. In contrast, there are around 200,000 units available in Florida, but master’s graduates can’t afford the rent cost now, let alone an increment on it
+In the previous figure, bars represent the maximum percentage of gross rent cost that can be increased before master’s graduates or above can’t afford it from 2020. The red line represented the number of housing units for rent. For example, in Georgia, the gross rent can be raised to 16%, but there are only 75,000 units available. In contrast, there are around 200,000 units available in Florida, but master’s graduates can’t afford the rent cost now, let alone an increment on it
 
 ### Distribution of renter housing units by income salary
 
@@ -299,7 +299,7 @@ Let's check is the number of houses rented by people who earn less money than a 
 
 ### Visualization of distribution of renter housing units
 
-A Barplot is requiered a categorical variable on the x-axis, in our case, gross rent prices range. On the y-axis, a numerical value is needed which it will be the number of housing units.
+A barplot is required a categorical variable on the x-axis, in our case, gross rent prices range. On the y-axis, a numerical value is needed which it will be the number of housing units.
 
 The next figure shows a set of 6 barplots (one for each year) for each state.
 
@@ -323,4 +323,21 @@ There are several takeaways from there.
 
 ## Dashboard
 
+In order to show the most important visualizations from the EDA, a dashboard was created on Tableau Public which is available at the next [link](https://public.tableau.com/app/profile/ali.lara/viz/RENTALCOSTSONTHERISE-Mightgraduatepeopleexperiencehomelessness/Story?publish=yes)
+
+In summary the story on Tableau has two dashboards:
+
+- The first one shows the data related to total population and homeless population.
+- the second one shows the distribution of the 25 year+ population on the US territories, how the median income and median gross rent have changed from 2015 to 2020, and finally it shows in which states master graduate people can afford an increase on the average gross rent cost.
+
+![png](images/dashboard01.png)
+
 ## Conclusions
+
+- Overall, America’s homeless population has increased an average of 2.5% yearly since 2018. However, the population registered a 0.5%-decrease between 2019 and 2020.  From 2015-2020, the homeless population was 0.16% of the total population.
+- The states with the highest rate of homelessness over the course of five years include California, New York, and Florida, respectfully.
+- From 2015 to 2020, bachelor's graduate or above population has rented between 22% to 35% of the rental housing market.
+- In average, Master's graduate earn an average of 30% more than undergraduate professional.
+- A bachelor graduate can not afford the median gross rent nationwide. Therefore, a future increase on this expense won't lead them to experience homelessness.
+- For master graduate and above population, an increase of gross rent between 1% and 16% can be allowed without affect their monthly budget in Georgia, Massachusetts, Washington, New York, Oregon and California.
+- In Texas, there are the highest number of housing units available for rent in the USA.

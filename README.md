@@ -12,5 +12,5 @@ In summary, the project title was: _Could rising gross rental costs drive the US
 
 - Codes: [Python](https://github.com/aliglara/capstone-c1-DA/tree/main/codes)
 - Reports: [Final report (WIP)](https://github.com/aliglara/capstone-c1-DA/blob/main/deliverables/006_report.md)
-- Vizs: [Tableau viz (WIP)](https://public.tableau.com/views/c1_capstone/Story1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link)
+- Vizs: [Tableau viz (WIP)](https://public.tableau.com/app/profile/ali.lara/viz/RENTALCOSTSONTHERISE-Mightgraduatepeopleexperiencehomelessness/Story?publish=yes)
 - Databases: [Heroku - PostgreSQL](https://dashboard.heroku.com/apps/c1-capstone)
